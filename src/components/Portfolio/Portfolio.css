@@ -19,196 +19,60 @@
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
     color:  #8B8B8B;
+}
 
-    
+.portfolio__list {
+    margin: 0 70px 0;
+    padding: 0;
 
 }
 
+.portfolio__item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #424242;
+}
 
+.portfolio__item:last-child {
+    border-bottom: none;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-.aboutMy__title-text {
-    margin: 0 0 23px 0;
+.portfolio__item-text {
+    margin: 0;
     padding: 0;
     font-family: 'Inter', Arial, sans-serif;
     font-weight: 400;
-    font-size: 22px;
-    line-height: 27px;
+    font-size: 30px;
+    line-height: 50px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-    color: #FFF;
+    color:  #FFF;
 }
 
-.aboutMy__main {
-    display: flex;
-    justify-content:space-between;
-    margin: 66px 70px 0;
-}
-
-.aboutMy__main-info {
-    max-width: 600px;
+.portfolio__item-link {
     font-family: 'Inter', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 60px;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
     -moz-text-size-adjust: 100%;
     text-rendering: optimizeLegibility;
-    color: #FFF;
-}
-
-.aboutMy__main-info-name {
-    font-weight: 400;
-    font-size: 50px;
-    line-height: 58px;
-    margin: 0 0 18px 0;
-    padding: 0;
-}
-
-.aboutMy__main-info-profession {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 20px;
-    margin: 0 0 26px 0;
-    padding: 0;
-}
-
-.aboutMy__main-info-about {
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 22px;
-    padding: 0;
-    margin: 0 0 100px 0;
-}
-
-.aboutmy__main-list {
-    list-style-type: none;
-    display: flex;
-    gap: 10px;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    margin: 0;
-    padding: 0;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-}
-
-.aboutmy__main-item {
-    margin: 0;
-    padding: 0;
-}
-
-.aboutmy__main-link {
-    color: #FFF;
+    color:  #FFF;
     text-decoration: none;
     cursor: pointer;
     transition: .5s;
 }
 
-.aboutmy__main-link:hover {
+.portfolio__item-link:hover {
     opacity: 0.6;
-    text-decoration-line: underline;
-}
-
-
-
-.aboutMy__main-img {
-    width: 270px;
-    height: 327px;
-}
-
-.aboutMy__main-list {
-    max-width: 600px;
-}
-
-
-
-
-
-
-
-.techs__text-title {
-    margin: 0 auto;
-    padding: 90px 0 26px 0;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 50px;
-    line-height: 58px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color: #FFF;
-    text-align: center;
-    max-width: 600px;
-}
-
-.techs__text-subtitle {
-    margin: 0 auto;
-    padding: 0;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 20px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color: #FFF;
-    text-align: center;
-    max-width: 460px;
-}
-
-.techs__list {
-    list-style-type: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin: 100px auto 0;
-}
-
-.techs__list-item {
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color: #FFF;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 90px;
-    height: 60px;
-    margin: 0;
-    padding: 0;
-    background-color: #303030;
-    border-radius: 10px;
-
+    font-size: 40px;
+    line-height: 60px;
 }
 
