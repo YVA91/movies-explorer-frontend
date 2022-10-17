@@ -10,10 +10,10 @@ function AboutProject() {
             </h2>
         </div>
         <article className="aboutproject__text">
-            <h3 className="aboutproject__text-title">Дипломный проект включал 5 этапов</h3>
-            <h3 className="aboutproject__text-title">На выполнение диплома ушло 5 недель</h3>
-            <p className="aboutproject__text-subtitle">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
-            <p className="aboutproject__text-subtitle">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
+            <h3 className="aboutproject__text-title aboutproject__text-title_first">Дипломный проект включал 5 этапов</h3>
+            <h3 className="aboutproject__text-title aboutproject__text-title_second">На выполнение диплома ушло 5 недель</h3>
+            <p className="aboutproject__text-subtitle aboutproject__text-subtitle_first">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>
+            <p className="aboutproject__text-subtitle aboutproject__text-subtitle_second">У каждого этапа был мягкий и жёсткий дедлайн, которые нужно было соблюдать, чтобы успешно защититься.</p>
         </article>
         <div className="aboutproject__visualization">
             <div className="aboutproject__visualization-item">

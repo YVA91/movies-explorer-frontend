@@ -13,7 +13,7 @@
 .techs__title {
     margin: 0 70px;
     border-bottom: 1px solid #FFF;
-    
+
 
 }
 
@@ -76,6 +76,7 @@
     flex-wrap: wrap;
     gap: 10px;
     margin: 100px auto 0;
+    padding: 0;
 }
 
 .techs__list-item {
@@ -99,6 +100,17 @@
     padding: 0;
     background-color: #303030;
     border-radius: 10px;
-
 }
 
+
+@media screen and (max-width: 768px) {
+    .techs__container {
+        padding: 90px 0;
+    }
+
+    .techs__text-subtitle {
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+}
