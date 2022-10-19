@@ -1,4 +1,4 @@
-import './Techs.css';
+import './Techs.css'
 
 function Techs() {
 
@@ -25,11 +25,6 @@ function Techs() {
             <li className="techs__list-item">Express.js</li>
             <li className="techs__list-item">mongoDB</li>
         </ul>
-
-
-
-
-
         </div>
     </section>
     );
