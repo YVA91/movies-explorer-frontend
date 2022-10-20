@@ -11,7 +11,7 @@ function Header() {
     return (
     <>
     <Route exact path="/">
-    <header className="header">
+    <header className="header header_main ">
         <div className="header__container">
         <img className="header__logo" src={logo} alt="логотип" />
         <nav className="header__nav">
@@ -26,7 +26,7 @@ function Header() {
     </header>
     </Route>
     <Route exact path="/movies">
-    <header className="header header_movies">
+    <header className="header">
         <div className="header__container">
             <img className="header__logo" src={logo} alt="логотип" />
             <nav className="header__nav header__nav_movies">
@@ -44,6 +44,15 @@ function Header() {
                     </Link>
                 </nav>
             </nav>
+        </div>
+    </header>
+    </Route>
+    <Route exact path="/signup">
+    <header className="header">
+        <div className="header__container header__container_signup">
+            <Link to="/" className="header__logo header__logo_signup">
+            <img src={logo} alt="логотип"/>
+            </Link>
         </div>
     </header>
     </Route>

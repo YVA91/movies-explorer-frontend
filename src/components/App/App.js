@@ -14,24 +14,21 @@ return (
     <Switch>
     <Route exact path="/">
     <Main />
+    <Footer />
     </Route>
     <Route path="/movies">
         <Movies/>
+        <Footer />
     </Route>
-    <Route path="/sign-up">
+    <Route path="/signup">
         <Register
-            title="Регистрация"
+            title="Добро пожаловать!"
             buttonText="Зарегистрироваться"
         />
     </Route>
 
     
     </Switch>
-
-
-
-
-    <Footer />
     </>
 )
 }

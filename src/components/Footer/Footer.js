@@ -1,8 +1,10 @@
 import './Footer.css';
+import { Route } from 'react-router-dom';
 
 function Footer() {
 
     return (
+    <>
     <footer className="footer">
         <div className="footer__title">
             <h2 className="footer__title-text">
@@ -10,7 +12,7 @@ function Footer() {
             </h2>
         </div>
         <div className='footer__info'>
-            <p className='footer__copyright'>© 2022</p>
+            <p className='footer__copyright'>© {new Date().getFullYear()}</p>
             <ul className='footer__nav'>
                 <li  className='footer__nav-item'>
                     <a className='footer__nav-link' href="https://practicum.yandex.ru" target="_blank">Яндекс.Практикум</a>
@@ -20,8 +22,8 @@ function Footer() {
                 </li>
             </ul>
         </div>
-
     </footer>
+    </>
     );
 }
 

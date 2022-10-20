@@ -25,7 +25,7 @@ return (
     />
     <div className='formregister'>
       <p className='formregister__item'>Уже зарегистрированы?&nbsp;
-        <Link to="/sign-in" className='formregister__item formregister__item_link'>
+        <Link to="/signin" className='formregister__item formregister__item_link'>
           Войти
         </Link>
       </p>
