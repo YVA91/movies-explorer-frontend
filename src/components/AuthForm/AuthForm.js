@@ -1,39 +1,46 @@
 import './AuthForm.css';
+import { Route } from 'react-router-dom';
 
 function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwordValue, onChange, buttonText }) {
     return (
     <form className='authform' onSubmit={onSubmit}>
         <h2 className='authform__title'>{title}</h2> 
+        <Route exact path="/signup">
         <label className="authform__field">
+        <span className="authform__field-signature">Имя</span>
         <input 
-            name={nameEmail}
+            className="authform__field-item" 
+            id="name"
+            type="text"  
+            required
+            minLength="2"
+        />
+        <span className="popup__field-item-error" id="title-error"></span>
+        </label>
+        </Route>
+        <label className="authform__field">
+        <span className="authform__field-signature">E-mail</span>
+        <input 
             className="authform__field-item" 
             id="email"
             type="email"  
-            placeholder="Email"  
             required
             minLength="2"
-            value={emailValue || ""}
-            onChange={onChange}
         />
         <span className="popup__field-item-error" id="title-error"></span>
         </label>
         <label className="authform__field">
+        <span className="authform__field-signature">Пароль</span>
         <input 
-            name={namePassword}
             className="authform__field-item" 
             id="password"
             type="password" 
-            placeholder="Пароль"
             required
             minLength="2"
-            value={passwordValue || ""}
-            onChange={onChange} 
         />
         <span className="popup__field-item-error" id="link-error"></span>
         </label>
         <button className="authform__button" type="submit" aria-label={buttonText}>{buttonText}</button>
-        <p></p>
     </form>
     );
 }
