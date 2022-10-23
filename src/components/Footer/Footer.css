@@ -1,114 +1,118 @@
 .footer {
-    margin: 0 auto;
-    padding: 79px 0 0 0;
-    max-width: 1280px;
+  margin: 0 auto;
+  padding: 79px 0 0 0;
+  max-width: 1280px;
 }
 
 .footer__title {
-    margin: 0 70px 0;
-    border-bottom: 1px solid #424242;
+  margin: 0 70px 0;
+  border-bottom: 1px solid #424242;
 }
 
 .footer__title-text {
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color: #8B8B8B;
-    margin: 0 0 20px 0;
-    padding: 0;
-    text-align: center;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #8B8B8B;
+  margin: 0 0 20px 0;
+  padding: 0;
+  text-align: center;
 }
 
 .footer__info {
-    display: flex;
-    justify-content: space-between;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 13px;
-    line-height: 16px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color: #FFF;
-    margin: 20px 70px;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #FFF;
+  margin: 20px 70px;
 }
 
 .footer__nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    transition: .5s;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: .5s;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .footer__nav-item {
-    margin: 0 20px 0 0;
+  margin: 0 20px 0 0;
 }
 
 .footer__nav-item:last-child {
-    margin: 0;
+  margin: 0;
 }
 
 .footer__nav-link {
-    color: #FFF;
-    text-decoration: none;
-    cursor: pointer;
-    transition: .5s;
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .5s;
 }
 
 .footer__nav-link:hover {
-    opacity: 0.6;
-    text-decoration-line: underline;
+  opacity: 0.6;
+  text-decoration-line: underline;
 }
 
 .footer__copyright {
-   margin: 0;
-   padding: 0;     
+  margin: 0;
+  padding: 0;
 }
 
 @media screen and (max-width: 768px) {
-    .footer__title {
-        margin: 0 30px 0;
-    }
-    .footer__info {
-        margin: 20px 30px;
-    }
+  .footer__title {
+    margin: 0 30px 0;
+  }
+
+  .footer__info {
+    margin: 20px 30px;
+  }
 }
 
 @media screen and (max-width: 680px) {
-    .footer__title {
-        margin: 0 10px 0;
-    }
-    .footer__info {
-        flex-direction: column-reverse;
-        font-size: 12px;
-        line-height: 15px;
-        margin: 30px 0 10px 0;
-    }
-    .footer__nav {
-        flex-direction: column;
-        align-items: center;
-    }
-    .footer__nav-item {
-        margin: 0 0 12px 0;
-    }
-    .footer__copyright {
-        text-align: center;
-        color: #8B8B8B;
-        margin: 30px 0 0 0;
+  .footer__title {
+    margin: 0 10px 0;
+  }
 
-    }
+  .footer__info {
+    flex-direction: column-reverse;
+    font-size: 12px;
+    line-height: 15px;
+    margin: 30px 0 10px 0;
+  }
+
+  .footer__nav {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer__nav-item {
+    margin: 0 0 12px 0;
+  }
+
+  .footer__copyright {
+    text-align: center;
+    color: #8B8B8B;
+    margin: 30px 0 0 0;
+  }
 }

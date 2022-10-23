@@ -1,35 +1,35 @@
 .authform {
-    margin: 0 auto;
-    padding: 0;
-    max-width: 396px;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 396px;
 }
 
 @media screen and (max-width: 420px) {
-.authform {
-  max-width: 260px;
-}
+  .authform {
+    max-width: 260px;
+  }
 }
 
 .authform__button {
-    width: 100%;
-    height: 45px;
-    padding: 0;
-    margin: 69px 0 16px 0;
-    background-color: #4285F4;
-    border-radius: 3px;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 17px;
-    color: #FFF;
-    align-items: center;
-    border: none;
-    cursor: pointer;
-    transition: .5s;
-  }
+  width: 100%;
+  height: 45px;
+  padding: 0;
+  margin: 69px 0 16px 0;
+  background-color: #4285F4;
+  border-radius: 3px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #FFF;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: .5s;
+}
 
-  .authform__button:hover {
-    opacity: 0.6;
+.authform__button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 420px) {
@@ -40,87 +40,90 @@
   }
 }
 
-  .authform__field {
-    display: block;
-    width: 100%;
-    margin: 0 0 24px 0;
-  }
+.authform__field {
+  display: block;
+  width: 100%;
+  margin: 0 0 24px 0;
+}
 
-  .authform__field:last-of-type {
-    margin: 0 0 83px 0;
-  }
+.authform__field:last-of-type {
+  margin: 0 0 83px 0;
+}
 
 .authform__field-item {
-    padding: 0 0 13px 0;
-    border: none;
-    outline: none;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 17px;
-    box-sizing: border-box;
-    width: 100%;
-    border-bottom: 1px solid #424242;
-    background-color: inherit;
-    color: #ccc;
+  padding: 0 0 13px 0;
+  border: none;
+  outline: none;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  box-sizing: border-box;
+  width: 100%;
+  border-bottom: 1px solid #424242;
+  background-color: inherit;
+  color: #ccc;
 }
+
 .authform__field-item:hover {
   border-bottom: 1px solid #4285F4;
 }
+
 .authform__field-item:focus {
   border-bottom: 1px solid #4285F4;
 }
 
 .authform__title {
-    margin: 0;
-    padding: 0 0 40px 0;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    color: #fff;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    }
-    
-    @media screen and (max-width: 420px) {
-    .authform__title {
-        padding: 0 0 80px 0;
-        text-align: center;
-    }
-    }
+  margin: 0;
+  padding: 0 0 40px 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  color: #fff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
 
-    .popup__field-item-error {
-      margin: 6px 0 0 0;
-      padding: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      font-weight: 400;
-      font-size: 10px;
-      line-height: 12px;
-      color: #EE3465;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      -moz-text-size-adjust: 100%;
-      text-rendering: optimizeLegibility;
-    }
-    .authform__field-signature {
-      margin: 0 0 5px 0;
-      padding: 0;
-      font-family: 'Inter', Arial, sans-serif;
-      font-weight: 400;
-      font-size: 10px;
-      line-height: 12px;
-      color: #8B8B8B;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      -webkit-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      -moz-text-size-adjust: 100%;
-      text-rendering: optimizeLegibility;
-    }
+@media screen and (max-width: 420px) {
+  .authform__title {
+    padding: 0 0 80px 0;
+    text-align: center;
+  }
+}
+
+.authform__field-item-error {
+  margin: 6px 0 0 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+.authform__field-signature {
+  margin: 0 0 5px 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #8B8B8B;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}

@@ -1,10 +1,10 @@
-import './Movies.css';
+import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import { useState, useEffect } from 'react';
 
-function Movies({ movies }) {
+function SavedMovies({ movies }) {
 
   const [movieDisplay, setMovieDisplay] = useState(() => {
     const width = window.innerWidth
@@ -34,7 +34,7 @@ function Movies({ movies }) {
     });
   }, []);
 
-  const moviesScreen = movies.slice(0, movieDisplay);
+  const moviesScreen = movies.slice(0, 3);
 
   return (
     <>
@@ -46,4 +46,4 @@ function Movies({ movies }) {
     </>
   );
 }
-export default Movies;
+export default SavedMovies;

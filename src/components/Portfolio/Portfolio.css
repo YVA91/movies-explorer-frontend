@@ -1,118 +1,124 @@
-
 .portfolio {
-    margin: 0 auto;
-    padding: 0 0 81px 0;
-    max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 0 81px 0;
+  max-width: 1280px;
 }
 
 .portfolio__title {
-    margin: 0 70px 50px;
-    padding: 0;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 20px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color:  #8B8B8B;
+  margin: 0 70px 50px;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #8B8B8B;
 }
 
 .portfolio__list {
-    margin: 0 70px 0;
-    padding: 0;
-
+  margin: 0 70px 0;
+  padding: 0;
 }
 
 .portfolio__item {
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px solid #424242;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #424242;
 }
 
 .portfolio__item:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .portfolio__item-text {
-    margin: 0 0 19px 0;
-    padding: 0;
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 50px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color:  #FFF;
+  margin: 0 0 19px 0;
+  padding: 0;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #FFF;
 }
 
 .portfolio__item-link {
-    font-family: 'Inter', Arial, sans-serif;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 60px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-    -moz-text-size-adjust: 100%;
-    text-rendering: optimizeLegibility;
-    color:  #FFF;
-    text-decoration: none;
-    cursor: pointer;
-    transition: .5s;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 60px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .5s;
 }
 
 .portfolio__item-link:hover {
-    opacity: 0.6;
-    font-size: 40px;
-    line-height: 60px;
+  opacity: 0.6;
+  font-size: 40px;
+  line-height: 60px;
 }
 
 @media screen and (max-width: 768px) {
-    .portfolio {
-        padding: 0 0 71px 0;
-    }
-    .portfolio__title {
-        margin: 0 0 50px 50px;
-    }
-    .portfolio__list {
-        margin: 0 50px 0;
-    }
-    .portfolio__item-text {
-        font-size: 28px;
-        line-height: 50px;
-    }
-    .portfolio__item-link {
-        font-size: 28px;
-        line-height: 60px;
-    }
+  .portfolio {
+    padding: 0 0 71px 0;
+  }
+
+  .portfolio__title {
+    margin: 0 0 50px 50px;
+  }
+
+  .portfolio__list {
+    margin: 0 50px 0;
+  }
+
+  .portfolio__item-text {
+    font-size: 28px;
+    line-height: 50px;
+  }
+
+  .portfolio__item-link {
+    font-size: 28px;
+    line-height: 60px;
+  }
 }
 
 @media screen and (max-width: 680px) {
-    .portfolio {
-        padding: 0 0 51px 0;
-    }
-    .portfolio__title {
-        margin: 0 0 40px 14px;
-        font-size: 14px;
-    }
-    .portfolio__list {
-        margin: 0 14px 0;
-    }
-    .portfolio__item-text {
-        font-size: 18px;
-        line-height: 28px;
-    }
-    .portfolio__item-link {
-        font-size: 18px;
-        line-height: 28px;
-    }
+  .portfolio {
+    padding: 0 0 51px 0;
+  }
+
+  .portfolio__title {
+    margin: 0 0 40px 14px;
+    font-size: 14px;
+  }
+
+  .portfolio__list {
+    margin: 0 14px 0;
+  }
+
+  .portfolio__item-text {
+    font-size: 18px;
+    line-height: 28px;
+  }
+
+  .portfolio__item-link {
+    font-size: 18px;
+    line-height: 28px;
+  }
 }

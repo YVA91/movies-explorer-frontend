@@ -1,44 +1,31 @@
 import './Menu.css';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-function Menu() {
+function Menu({ isOpenMenu, onCloseMenu }) {
 
-    return (
-    <>
-    
-
-
-
-    <Route exact path="/">
-        <nav className="navigation">
-            <Link to="/signup" className="navigation__link">
-            Регистрация
+  return (
+    <section className={`menu ${isOpenMenu && 'menu_visibility'}`}>
+      <div className="menu__container">
+        <button className="menu-button-close" onClick={onCloseMenu}></button>
+        <nav className="menu__nav">
+          <nav className="menu__nav-main">
+            <Link to="/signup" className="menu__nav-link">
+              Главная
             </Link>
-            <Link to="/signin" className="navigation__link">
-            Войти
-        </Link>
+            <Link to="/signup" className="menu__nav-link">
+              Фильмы
+            </Link>
+            <Link to="/signup" className="menu__nav-link">
+              Сохранённые фильмы
+            </Link>
+          </nav>
+          <nav className="menu__nav-footer">
+            <Link to="/" className="menu__nav-footer-link">Аккаунт</Link>
+            <Link to="/" className="menu__nav-footer-button"></Link>
+          </nav>
         </nav>
-    </Route>
-    <Route exact path="/movies">
-        <nav className="navigation navigation_movies">
-            <nav>
-            <Link to="/" className="navigation__link-movies">
-                Фильмы
-            </Link>
-            <Link to="/" className="navigation__link-movies">
-                Сохранённые фильмы
-            </Link>
-            </nav>
-                <nav className="navigation__container-link">
-                <Link to="/" className="navigation__link-movies navigation__link-movies_account">Аккаунт</Link>
-                <Link to="/" className="navigation__link-movies navigation__link-movies_button">
-                </Link>
-            </nav>
-        </nav>
-    </Route>
-    </>
-
-    );
+      </div>
+    </section>
+  );
 }
-
 export default Menu;
