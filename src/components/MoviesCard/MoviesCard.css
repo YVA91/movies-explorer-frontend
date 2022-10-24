@@ -79,6 +79,19 @@
   cursor: pointer;
 }
 
+.moviescard__button_save {
+  background-color: #EE3465;
+  background-image: url(../../images/buttonsave.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.moviescard__button_delete {
+  background-image: url(../../images/battondelete.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
 .moviescard__button:hover {
   opacity: 0.6;
 }

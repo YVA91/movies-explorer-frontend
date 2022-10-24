@@ -1,4 +1,5 @@
 import './MoviesCard.css'
+import { Route } from 'react-router-dom';
 
 function MoviesCard({ movie }) {
 
@@ -16,7 +17,13 @@ function MoviesCard({ movie }) {
         <p className='moviescard__title-time'>{`${movie.duration} ${text()}`}</p>
       </div>
       <img className='moviescard__img' src={`https://api.nomoreparties.co${movie.image.url}`} alt='обложка' />
-      <button className='moviescard__button'>Сохранить</button>
+      <Route exact path="/movies">
+        <button className='moviescard__button /*moviescard__button_save*/'>Сохранить</button>
+      </Route>
+      <Route exact path="/saved-movies">
+        <button className='moviescard__button moviescard__button_delete'></button>
+      </Route>
+
     </section>
   );
 }
