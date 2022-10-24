@@ -10,7 +10,8 @@ function SearchForm() {
         <input className="search_form-input"
           id="search"
           type="text"
-          placeholder="Фильм" />
+          required
+          placeholder="Фильм"/>
         <button className="search_form-button">Найти</button>
       </form>
     </section>

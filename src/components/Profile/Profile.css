@@ -32,14 +32,6 @@
   border-bottom: 1px solid #424242;
 }
 
-.profile__field:hover {
-  border-bottom: 1px solid #4285F4;
-}
-
-.profile__field:focus {
-  border-bottom: 1px solid #4285F4;
-}
-
 .profile__field:last-of-type {
   margin: 0;
   border-bottom: none;

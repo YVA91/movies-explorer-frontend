@@ -9,19 +9,19 @@ function Menu({ isOpenMenu, onCloseMenu }) {
         <button className="menu-button-close" onClick={onCloseMenu}></button>
         <nav className="menu__nav">
           <nav className="menu__nav-main">
-            <Link to="/signup" className="menu__nav-link">
+            <Link to="/" className="menu__nav-link">
               Главная
             </Link>
-            <Link to="/signup" className="menu__nav-link">
+            <Link to="/movies" className="menu__nav-link">
               Фильмы
             </Link>
-            <Link to="/signup" className="menu__nav-link">
+            <Link to="/saved-movies" className="menu__nav-link">
               Сохранённые фильмы
             </Link>
           </nav>
           <nav className="menu__nav-footer">
-            <Link to="/" className="menu__nav-footer-link">Аккаунт</Link>
-            <Link to="/" className="menu__nav-footer-button"></Link>
+            <Link to="/profile" className="menu__nav-footer-link">Аккаунт</Link>
+            <Link to="/profile" className="menu__nav-footer-button"></Link>
           </nav>
         </nav>
       </div>

@@ -14,6 +14,7 @@ function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwo
             type="text"
             required
             minLength="2"
+            placeholder=""
           />
           <span className="authform__field-item-error" id="title-error"></span>
         </label>
@@ -26,6 +27,7 @@ function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwo
           type="email"
           required
           minLength="2"
+          placeholder=""
         />
         <span className="authform__field-item-error" id="title-error"></span>
       </label>
@@ -37,6 +39,7 @@ function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwo
           type="password"
           required
           minLength="2"
+          placeholder=""
         />
         <span className="authform__field-item-error" id="link-error"></span>
       </label>

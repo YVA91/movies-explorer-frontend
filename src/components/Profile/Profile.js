@@ -14,6 +14,7 @@ function Profile() {
             type="text"
             required
             minLength="2"
+            placeholder=""
           />
         </label>
         <span className="popup__field-item-error" id="title-error"></span>
@@ -25,6 +26,7 @@ function Profile() {
             type="email"
             required
             minLength="2"
+            placeholder=""
           />
         </label>
         <span className="popup__field-item-error" id="link-error"></span>
