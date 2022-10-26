@@ -12,7 +12,7 @@ function SearchForm() {
           type="text"
           required
           placeholder="Фильм"/>
-        <button className="search_form-button">Найти</button>
+        <button className="search_form-button" type="submit">Найти</button>
       </form>
     </section>
   );

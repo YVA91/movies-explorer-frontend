@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 function Register({ onRegister, title, buttonText }) {
 
   return (
-    <>
+    <main>
       <AuthForm
         nameEmail="email"
         namePassword="password"
@@ -19,7 +19,7 @@ function Register({ onRegister, title, buttonText }) {
           </Link>
         </p>
       </div>
-    </>
+    </main>
   );
 }
 

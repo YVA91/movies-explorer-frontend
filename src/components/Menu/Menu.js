@@ -6,7 +6,7 @@ function Menu({ isOpenMenu, onCloseMenu }) {
   return (
     <section className={`menu ${isOpenMenu && 'menu_visibility'}`}>
       <div className="menu__container">
-        <button className="menu-button-close" onClick={onCloseMenu}></button>
+        <button className="menu-button-close" type="button" onClick={onCloseMenu}></button>
         <nav className="menu__nav">
           <nav className="menu__nav-main">
             <Link to="/" className="menu__nav-link">

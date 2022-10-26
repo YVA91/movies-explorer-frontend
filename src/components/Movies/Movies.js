@@ -38,13 +38,13 @@ function Movies({ movies }) {
   const moviesScreen = movies.slice(0, movieDisplay);
 
   return (
-    <>
+    <main>
       <SearchForm />
       <FilterCheckbox />
       <MoviesCardList
         movies={moviesScreen}
       />
-    </>
+    </main>
   );
 }
 export default Movies;

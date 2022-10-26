@@ -12,7 +12,7 @@ function Login({ onRegister, title, buttonText }) {
   }
 
   return (
-    <>
+    <main>
       <AuthForm
         nameEmail="email"
         namePassword="password"
@@ -30,7 +30,7 @@ function Login({ onRegister, title, buttonText }) {
           </Link>
         </p>
       </div>
-    </>
+    </main>
   );
 }
 

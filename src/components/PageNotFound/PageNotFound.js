@@ -12,7 +12,7 @@ function backClick() {
     <section className='pageNotFound'>
       <h2 className='pageNotFound__title'>404</h2>
       <p className='pageNotFound__subtitle'>Страница не найдена</p>
-      <button className='pageNotFound__exit' onClick={backClick}>Назад</button>
+      <button className='pageNotFound__exit' onClick={backClick} type="button">Назад</button>
     </section>
   );
 }

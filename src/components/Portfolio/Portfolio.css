@@ -49,6 +49,13 @@
   -moz-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   color: #FFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: .5s;
+}
+
+.portfolio__item-text:hover {
+  opacity: 0.6;
 }
 
 .portfolio__item-link {

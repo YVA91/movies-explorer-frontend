@@ -37,13 +37,13 @@ function SavedMovies({ movies }) {
   const moviesScreen = movies.slice(0, 3);
 
   return (
-    <>
+    <main>
       <SearchForm />
       <FilterCheckbox />
       <MoviesCardList
         movies={moviesScreen}
       />
-    </>
+    </main>
   );
 }
 export default SavedMovies;
