@@ -1,0 +1,116 @@
+.search {
+  margin: 0 auto;
+  max-width: 1280px;
+  padding: 70px 0 30px 0;
+}
+
+.search_form {
+  margin: 0 70px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #424242;
+}
+
+.search_form:hover {
+  border-bottom: 1px solid #4285F4;
+}
+
+.search_form:focus-within {
+  border-bottom: 1px solid #4285F4;
+}
+
+.search_form-input {
+  width: 100%;
+  margin: 0 20px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 34px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #FFF;
+  outline: none;
+}
+
+.search_form-input::placeholder {
+  text-align: center;
+}
+
+.search_form-img {
+  width: 34px;
+  height: 34px;
+  margin: 0 0 15px 0;
+}
+
+.search_form-button {
+  margin: 0 0 15px 0;
+  padding: 0;
+  background-color: #4285F4;
+  border-radius: 48px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  color: #FFF;
+  cursor: pointer;
+  border: none;
+  width: 58px;
+  height: 34px;
+  flex-shrink: 0;
+  transition: .5s;
+}
+
+.search_form-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .search {
+    padding: 86px 0 30px 0;
+  }
+
+  .search_form {
+    margin: 0 30px 0;
+  }
+}
+
+@media screen and (max-width: 540px) {
+  .search {
+    padding: 98px 0 43px 0;
+  }
+
+  .search_form {
+    margin: 0 14px 0;
+  }
+
+  .search_form-button {
+    margin: 0 0 9px 0;
+  }
+
+  .search_form-input {
+    font-size: 18px;
+    line-height: 22px;
+    margin: 0 10px 0 0;
+  }
+
+  .search_form-input::placeholder {
+    text-align: start;
+  }
+
+  .search_form-img {
+    display: none;
+  }
+}
