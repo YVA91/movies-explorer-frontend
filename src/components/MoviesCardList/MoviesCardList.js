@@ -1,7 +1,7 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, still }) {
 
   return (
     <section className='moviescardlist'>
@@ -15,7 +15,7 @@ function MoviesCardList({ movies }) {
           })
         }
       </div>
-      <button type='button' className='moviescardlist__button'>Ещё</button>
+      <button type='button' className='moviescardlist__button' onClick={still}>Ещё</button>
     </section>
   );
 }

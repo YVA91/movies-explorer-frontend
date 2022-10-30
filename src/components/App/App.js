@@ -9,20 +9,29 @@ import PageNotFound from '../PageNotFound/PageNotFound';
 import Menu from '../Menu/Menu';
 import Profile from '../Profile/Profile'
 import SavedMovies from '../SavedMovies/SavedMovies'
+import * as MainApi from '../../utils/MainApi';
 import { getCreateMovies } from '../../utils/MoviesApi'
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [isOpenMenu, setisOpenMenu] = useState(false);
   const [movies, setMovies] = useState([]);
+  const history = useHistory();
+  const [errorServer, setErrorServer] = useState('');
+  const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [isPreloader, setIsPreloader] = useState(false);
+
+
 
   function handleOpenMenuClick() {
     if (isOpenMenu === false) {
       setisOpenMenu(true)
     } else
       setisOpenMenu(false)
-
   }
 
   useEffect(() => {
@@ -45,6 +54,8 @@ function App() {
   })
 
   useEffect(() => {
+    if (loggedIn) {
+    setIsPreloader(true)
     getCreateMovies()
       .then((movie) => {
         setMovies(movie);
@@ -52,55 +63,171 @@ function App() {
       .catch((err) => {
         console.log(err);
       })
+      .finally(() => {
+        setIsPreloader(false)
+      });
+    }
+  }, [loggedIn])
+
+  useEffect(() => {
+    MainApi.getUserInfo()
+      .then((data) => {
+        setCurrentUser(data)
+        history.push('/movies')
+        setLoggedIn(true)
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }, [])
+
+  useEffect(() => {
+    history.listen(() => {
+      setErrorServer('')
+    })
+  }, [history]);
+
+
+  function handleSubmitRegister(email, password, name) {
+    MainApi.register(email, password, name)
+      .then((data) => {
+        history.push('/movies')
+        setErrorServer('');
+        setCurrentUser(data)
+        setLoggedIn(true)
+      })
+      .catch((err) => {
+        console.log(err)
+        if (err === 409) {
+          setErrorServer('Пользователь с таким e-mail уже зарегистрирован')
+        } else {
+          setErrorServer('Что-то пошло не так')
+        }
+
+      })
+      .finally(() => {
+      });
+  }
+
+  function handleSubmitAuthorize(email, password) {
+    MainApi.authorize(email, password)
+      .then((data) => {
+        setCurrentUser(data)
+        setErrorServer('');
+        history.push('/movies')
+        setLoggedIn(true)
+      })
+      .catch((err) => {
+        if (err === 401) {
+          setErrorServer('Неправильные почта или пароль')
+        } else {
+          setErrorServer('Что-то пошло не так')
+        }
+      })
+  }
+
+
+  function handleUpdateUser(email, name) {
+    MainApi.patchUserInfo(email, name)
+      .then((data) => {
+        setCurrentUser(data)
+        setErrorServer('');
+      })
+      .catch((err) => {
+        if (err === 409) {
+          setErrorServer('Пользователь с таким e-mail уже зарегистрирован')
+        } else {
+          setErrorServer('Что-то пошло не так')
+        }
+      })
+  }
+
+  function handleExit() {
+    MainApi.getExit()
+      .then(() => {
+        history.push('/')
+        setLoggedIn(false)
+      })
+      .catch(err => console.log(err))
+  }
 
 
   return (
     <>
-      <Header
-        onMenu={handleOpenMenuClick}
-      />
-      <Switch>
-        <Route exact path="/">
-          <Main />
-          <Footer />
-        </Route>
-        <Route path="/movies">
-          <Movies
-            movies={movies}
+      <CurrentUserContext.Provider value={currentUser} >
+        <Header
+          onMenu={handleOpenMenuClick}
+        />
+        <Switch>
+          <Route exact path="/">
+            <Main />
+            <Footer />
+          </Route>
+
+          <Route
+            exact path="/movies"
+            children={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Movies
+                  movies={movies}
+                  isPreloader={isPreloader}
+                />
+                <Footer />
+              </ProtectedRoute>
+            }
           />
-          <Footer />
-        </Route>
-        <Route path="/saved-movies">
-          <SavedMovies
-            movies={movies}
+
+          <Route
+            path="/saved-movies"
+            children={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <SavedMovies
+                  movies={movies}
+                />
+                <Footer />
+              </ProtectedRoute>
+            }
           />
-          <Footer />
-        </Route>
-        <Route path="/signup">
-          <Register
-            title="Добро пожаловать!"
-            buttonText="Зарегистрироваться"
+
+          <Route path="/signup">
+            <Register
+              title="Добро пожаловать!"
+              buttonText="Зарегистрироваться"
+              onRegister={handleSubmitRegister}
+              errorServer={errorServer}
+            />
+          </Route>
+          <Route path="/signin">
+            <Login
+              title="Рады видеть!"
+              buttonText="Войти"
+              onLogin={handleSubmitAuthorize}
+              errorServer={errorServer}
+            />
+          </Route>
+
+          <Route
+            path="/profile"
+            children={
+              <ProtectedRoute loggedIn={loggedIn}>
+                <Profile
+              onUpdateUser={handleUpdateUser}
+              errorServer={errorServer}
+              onExit={handleExit}
+            />
+              </ProtectedRoute>
+            }
           />
-        </Route>
-        <Route path="/signin">
-          <Login
-            title="Рады видеть!"
-            buttonText="Войти"
-          />
-        </Route>
-        <Route path="/profile">
-          <Profile
-          />
-        </Route>
-        <Route path="*">
-          <PageNotFound />
-        </Route>
-      </Switch>
-      <Menu
-        isOpenMenu={isOpenMenu}
-        onCloseMenu={handleOpenMenuClick}
-      />
+
+          <Route path="*">
+            <PageNotFound />
+          </Route>
+        </Switch>
+        <Menu
+          isOpenMenu={isOpenMenu}
+          onCloseMenu={handleOpenMenuClick}
+        />
+      </CurrentUserContext.Provider>
     </>
   )
 }

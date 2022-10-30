@@ -1,16 +1,33 @@
 import './Register.css'
 import AuthForm from '../AuthForm/AuthForm';
 import { Link } from 'react-router-dom';
+import {useFormWithValidation} from '../../hooks/useFormWithValidation'
 
-function Register({ onRegister, title, buttonText }) {
+function Register({ onRegister, title, buttonText, errorServer }) {
+  const {values, handleChange, errors, isValid,  } = useFormWithValidation({})
+
+  function handleSubmit(e) {
+  e.preventDefault();
+  onRegister(values.email, values.password, values.name)
+}
+
 
   return (
     <main>
       <AuthForm
         nameEmail="email"
         namePassword="password"
+        nameName="name" 
         title={title}
         buttonText={buttonText}
+        emailValue={values.email}
+        passwordValue={values.password}
+        nameValue={values.name}
+        onSubmit={handleSubmit}
+        onChange={handleChange}
+        error={errors}
+        isValid={isValid}
+        errorServer={errorServer}
       />
       <div className='formregister'>
         <p className='formregister__item'>Уже зарегистрированы?&nbsp;
