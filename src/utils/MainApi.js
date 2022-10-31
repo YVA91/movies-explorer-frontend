@@ -65,3 +65,48 @@ export const getExit = () => {
   })
     .then(report)
 }
+
+export const  postSaveMovie = (movie) => {
+  return fetch(`${BASE_URL}/movies`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: "include",
+    body: JSON.stringify({
+    country: movie.country,
+    director: movie.director,
+    duration: movie.duration, 
+    year: movie.year,
+    description: movie.description,
+    image: ( `https://api.nomoreparties.co${movie.image.url}`),
+    trailerLink: movie.trailerLink,
+    thumbnail: ( `https://api.nomoreparties.co${movie.image.url}`),
+    movieId: movie.id,
+    nameRU: movie.nameRU, 
+    nameEN: movie.nameEN,
+    })
+  })
+    .then(report)
+}
+
+export const getSaveMovies = () => {
+  return fetch(`${BASE_URL}/movies`, {
+    headers: {
+      "Content-Type": "application/json" 
+    },
+    credentials: "include",
+  })
+    .then(report)
+};
+
+export const  deleteMovie = (movieId) => {
+  return fetch(`${BASE_URL}/movies/${movieId}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    credentials: "include",
+  })
+    .then(report)
+}

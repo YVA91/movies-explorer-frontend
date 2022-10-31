@@ -6,7 +6,7 @@ import Preloader from '../Preloader/Preloader'
 import FoundNothing from '../FoundNothing/FoundNothing'
 import { useState, useEffect } from 'react';
 
-function Movies({ movies, isPreloader }) {
+function Movies({ movies, isPreloader, onSaveMovie}) {
   const [filterMovies, setFilterMovies] = useState([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isfilterCheckbox, setIsFilterCheckbox] = useState(false);
@@ -73,8 +73,6 @@ function Movies({ movies, isPreloader }) {
     }
   }
 
-
-
   useEffect(() => {
     window.addEventListener("resize", function () {
       setTimeout(handleMovieDisplay, 1000);
@@ -94,6 +92,7 @@ function Movies({ movies, isPreloader }) {
       <FoundNothing
       isNothingFound={isNothingFound}/>
       <MoviesCardList
+        onSaveMovie={onSaveMovie}
         movies={moviesScreen}
         still={handleStill}
         />

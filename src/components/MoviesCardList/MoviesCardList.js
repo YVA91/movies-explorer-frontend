@@ -1,7 +1,7 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, still }) {
+function MoviesCardList({ movies, still, onSaveMovie, onDeleteMovie }) {
 
   return (
     <section className='moviescardlist'>
@@ -9,7 +9,9 @@ function MoviesCardList({ movies, still }) {
         {movies.map((movie) => {
           return (
             <MoviesCard
-              key={movie.id}
+              onSaveMovie={onSaveMovie}
+              onDeleteMovie={onDeleteMovie}
+              key={movie.id || movie._id}
               movie={movie}
             />)
           })

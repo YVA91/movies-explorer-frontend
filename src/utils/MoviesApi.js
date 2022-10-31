@@ -11,4 +11,4 @@ const movieurl = 'https://api.nomoreparties.co/beatfilm-movies'
     return fetch(`${movieurl}`)
       .then(report)
   }
-
+  

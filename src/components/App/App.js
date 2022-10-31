@@ -19,6 +19,7 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 function App() {
   const [isOpenMenu, setisOpenMenu] = useState(false);
   const [movies, setMovies] = useState([]);
+  const [saveMovies, setSaveMovies] = useState([]);
   const history = useHistory();
   const [errorServer, setErrorServer] = useState('');
   const [currentUser, setCurrentUser] = useState({});
@@ -68,6 +69,25 @@ function App() {
       });
     }
   }, [loggedIn])
+
+
+  useEffect(() => {
+    if (loggedIn) {
+    setIsPreloader(true)
+    MainApi.getSaveMovies()
+      .then((movie) => {
+        setSaveMovies(movie);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsPreloader(false)
+      });
+    }
+  }, [loggedIn])
+
+
 
   useEffect(() => {
     MainApi.getUserInfo()
@@ -126,7 +146,6 @@ function App() {
       })
   }
 
-
   function handleUpdateUser(email, name) {
     MainApi.patchUserInfo(email, name)
       .then((data) => {
@@ -142,6 +161,29 @@ function App() {
       })
   }
 
+  function handleSaveMovie(movie) {
+    MainApi.postSaveMovie(movie)
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  function handleDeleteMovie(movie) {
+    MainApi.deleteMovie(movie._id)
+      .then(() => {
+        setSaveMovies((state) => state.filter((c) => c._id !== movie._id));
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+
+
+
   function handleExit() {
     MainApi.getExit()
       .then(() => {
@@ -150,6 +192,9 @@ function App() {
       })
       .catch(err => console.log(err))
   }
+
+
+
 
 
   return (
@@ -171,6 +216,7 @@ function App() {
                 <Movies
                   movies={movies}
                   isPreloader={isPreloader}
+                  onSaveMovie={handleSaveMovie}
                 />
                 <Footer />
               </ProtectedRoute>
@@ -182,7 +228,9 @@ function App() {
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
-                  movies={movies}
+                  onDeleteMovie={handleDeleteMovie}
+                  saveMovies={saveMovies}
+                  isPreloader={isPreloader}
                 />
                 <Footer />
               </ProtectedRoute>

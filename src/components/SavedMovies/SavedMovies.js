@@ -2,12 +2,16 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import FoundNothing from '../FoundNothing/FoundNothing';
+import Preloader from '../Preloader/Preloader';
 import { useState, useEffect } from 'react';
 
-function SavedMovies({ movies }) {
-
+function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
+  const [filterMovies, setFilterMovies] = useState([]);
+  const [isNothingFound, setIsNothingFound] = useState(false);
+  const [isfilterCheckbox, setIsFilterCheckbox] = useState(false);
+  const width = window.innerWidth
   const [movieDisplay, setMovieDisplay] = useState(() => {
-    const width = window.innerWidth
     if (width < 480) {
       return 5;
     } else if (width < 768) {
@@ -28,19 +32,70 @@ function SavedMovies({ movies }) {
     }
   }
 
+  function handleStill() {
+    if (width < 480) {
+      setMovieDisplay(movieDisplay + 1);
+    } else if (width < 768) {
+      setMovieDisplay(movieDisplay + 2);
+    } else if (width > 768) {
+      setMovieDisplay(movieDisplay + 3);
+    }
+  }
+
+
+  function filter (text) {
+    if (isfilterCheckbox) {
+    const filter = saveMovies.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
+      if (filter == 0) { 
+        setIsNothingFound(true)
+        setFilterMovies(filter)
+      } else {
+      setFilterMovies(filter)
+      setIsNothingFound(false)
+      }
+    } else {
+      const filter = saveMovies.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
+      if (filter == 0) { 
+        setIsNothingFound(true)
+        setFilterMovies(filter)
+      } else {
+      setFilterMovies(filter)
+      setIsNothingFound(false)
+      }
+    }
+  }
+
+  function filterCheckbox() {
+    if(isfilterCheckbox) {
+      setIsFilterCheckbox(false)
+    } else {
+      setIsFilterCheckbox(true)
+    }
+  }
+
   useEffect(() => {
     window.addEventListener("resize", function () {
       setTimeout(handleMovieDisplay, 1000);
     });
   }, []);
 
-  const moviesScreen = movies.slice(0, 3);
+  const moviesScreen = filterMovies.slice(0, movieDisplay);
+
+
+
 
   return (
     <main>
-      <SearchForm />
-      <FilterCheckbox />
+      <SearchForm 
+      filter={filter}/>
+      <FilterCheckbox 
+      filterCheckbox={filterCheckbox}/>
+      <Preloader 
+      isPreloader={isPreloader}/>
+      <FoundNothing
+      isNothingFound={isNothingFound}/>
       <MoviesCardList
+        onDeleteMovie={onDeleteMovie}
         movies={moviesScreen}
       />
     </main>
