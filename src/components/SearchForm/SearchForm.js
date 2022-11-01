@@ -4,7 +4,7 @@ import {useFormWithValidation} from '../../hooks/useFormWithValidation';
 import { useState, useEffect } from "react";
 
 
-function SearchForm({filter}) {
+function SearchForm({searchFilm}) {
   const {values, handleChange, isValid, } = useFormWithValidation({})
   const [error, setError] = useState('');
 
@@ -30,7 +30,7 @@ function SearchForm({filter}) {
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      filter(values.search)
+      searchFilm(values.search)
   } else {
       setError('Нужно ввести ключевое слово');
   }

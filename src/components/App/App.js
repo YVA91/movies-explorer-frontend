@@ -10,7 +10,6 @@ import Menu from '../Menu/Menu';
 import Profile from '../Profile/Profile'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import * as MainApi from '../../utils/MainApi';
-import { getCreateMovies } from '../../utils/MoviesApi'
 import { Route, Switch, useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
@@ -18,7 +17,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
   const [isOpenMenu, setisOpenMenu] = useState(false);
-  const [movies, setMovies] = useState([]);
   const [saveMovies, setSaveMovies] = useState([]);
   const history = useHistory();
   const [errorServer, setErrorServer] = useState('');
@@ -53,23 +51,6 @@ function App() {
       }
     }
   })
-
-  useEffect(() => {
-    if (loggedIn) {
-    setIsPreloader(true)
-    getCreateMovies()
-      .then((movie) => {
-        setMovies(movie);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsPreloader(false)
-      });
-    }
-  }, [loggedIn])
-
 
   useEffect(() => {
     if (loggedIn) {
@@ -181,14 +162,13 @@ function App() {
       })
   }
 
-
-
-
   function handleExit() {
     MainApi.getExit()
       .then(() => {
         history.push('/')
         setLoggedIn(false)
+        localStorage.removeItem('data')
+        localStorage.removeItem('text')
       })
       .catch(err => console.log(err))
   }
@@ -214,8 +194,7 @@ function App() {
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <Movies
-                  movies={movies}
-                  isPreloader={isPreloader}
+                  loggedIn={loggedIn}
                   onSaveMovie={handleSaveMovie}
                 />
                 <Footer />

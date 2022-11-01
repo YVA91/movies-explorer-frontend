@@ -4,12 +4,14 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader'
 import FoundNothing from '../FoundNothing/FoundNothing'
+import { getCreateMovies } from '../../utils/MoviesApi'
 import { useState, useEffect } from 'react';
 
-function Movies({ movies, isPreloader, onSaveMovie}) {
-  const [filterMovies, setFilterMovies] = useState([]);
+function Movies({onSaveMovie, loggedIn}) {
+  const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')));
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isfilterCheckbox, setIsFilterCheckbox] = useState(false);
+  const [isPreloader, setIsPreloader] = useState(false);
   const width = window.innerWidth
   const [movieDisplay, setMovieDisplay] = useState(() => {
     if (width < 480) {
@@ -42,28 +44,47 @@ function Movies({ movies, isPreloader, onSaveMovie}) {
     }
   }
 
+  function handleSearchFilm(text) {
+    if (loggedIn) {
+      localStorage.setItem('text', text)
+      setIsPreloader(true)
+      setFilterMovies([])
+      getCreateMovies()
+        .then((movie) => {
+          if (isfilterCheckbox) {
+            const filter = movie.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
+            localStorage.setItem('data',JSON.stringify(filter))
+              if (filter == 0) { 
+                setIsNothingFound(true)
+                setFilterMovies(JSON.parse(localStorage.getItem('data')))
+              } else {
+                setFilterMovies(JSON.parse(localStorage.getItem('data')))
+              setIsNothingFound(false)
+              }
+        
 
-  function filter (text) {
-    if (isfilterCheckbox) {
-    const filter = movies.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
-      if (filter == 0) { 
-        setIsNothingFound(true)
-        setFilterMovies(filter)
-      } else {
-      setFilterMovies(filter)
-      setIsNothingFound(false)
+            } else {
+              const filter = movie.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
+              localStorage.setItem('data',JSON.stringify(filter))
+              if (filter == 0) { 
+                setIsNothingFound(true)
+                setFilterMovies(JSON.parse(localStorage.getItem('data')))
+              } else {
+                setFilterMovies(JSON.parse(localStorage.getItem('data')))
+              setIsNothingFound(false)
+              }
+            }
+            
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsPreloader(false)
+        });
       }
-    } else {
-      const filter = movies.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
-      if (filter == 0) { 
-        setIsNothingFound(true)
-        setFilterMovies(filter)
-      } else {
-      setFilterMovies(filter)
-      setIsNothingFound(false)
-      }
-    }
   }
+
 
   function filterCheckbox() {
     if(isfilterCheckbox) {
@@ -79,12 +100,19 @@ function Movies({ movies, isPreloader, onSaveMovie}) {
     });
   }, []);
 
-  const moviesScreen = filterMovies.slice(0, movieDisplay);
+  const moviesScreen = quantityfilms ()
+  function quantityfilms () {
+    if (filterMovies===null) {
+      return []
+    } else {
+      return filterMovies.slice(0, movieDisplay);
+    }
+  }
 
   return (
     <main>
       <SearchForm 
-      filter={filter}/>
+      searchFilm={handleSearchFilm}/>
       <FilterCheckbox 
       filterCheckbox={filterCheckbox}/>
       <Preloader 
