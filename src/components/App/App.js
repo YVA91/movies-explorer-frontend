@@ -53,24 +53,6 @@ function App() {
   })
 
   useEffect(() => {
-    if (loggedIn) {
-    setIsPreloader(true)
-    MainApi.getSaveMovies()
-      .then((movie) => {
-        setSaveMovies(movie);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsPreloader(false)
-      });
-    }
-  }, [loggedIn])
-
-
-
-  useEffect(() => {
     MainApi.getUserInfo()
       .then((data) => {
         setCurrentUser(data)
@@ -169,6 +151,7 @@ function App() {
         setLoggedIn(false)
         localStorage.removeItem('data')
         localStorage.removeItem('text')
+        localStorage.removeItem('checkbox')
       })
       .catch(err => console.log(err))
   }

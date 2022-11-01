@@ -4,12 +4,13 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import FoundNothing from '../FoundNothing/FoundNothing';
 import Preloader from '../Preloader/Preloader';
+import * as MainApi from '../../utils/MainApi';
 import { useState, useEffect } from 'react';
 
 function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
   const [filterMovies, setFilterMovies] = useState([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
-  const [isfilterCheckbox, setIsFilterCheckbox] = useState(false);
+  const [isfilterCheckbox, setIsFilterCheckbox] = useState(localStorage.getItem('checkbox'));
   const width = window.innerWidth
   const [movieDisplay, setMovieDisplay] = useState(() => {
     if (width < 480) {
@@ -42,6 +43,22 @@ function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
     }
   }
 
+
+  useEffect(() => {
+    if (loggedIn) {
+    setIsPreloader(true)
+    MainApi.getSaveMovies()
+      .then((movie) => {
+        setSaveMovies(movie);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsPreloader(false)
+      });
+    }
+  }, [loggedIn])
 
   function filter (text) {
     if (isfilterCheckbox) {
@@ -80,6 +97,14 @@ function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
   }, []);
 
   const moviesScreen = filterMovies.slice(0, movieDisplay);
+
+
+
+
+
+
+
+
 
 
 

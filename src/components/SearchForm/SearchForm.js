@@ -1,13 +1,18 @@
 import './SearchForm.css';
 import search from '../../images/icon.png'
-import {useFormWithValidation} from '../../hooks/useFormWithValidation';
 import { useState, useEffect } from "react";
 
 
 function SearchForm({searchFilm}) {
-  const {values, handleChange, isValid, } = useFormWithValidation({})
   const [error, setError] = useState('');
+  const [values, setValues] = useState(localStorage.getItem(`text`));
+  const [isValid, setIsValid] = useState(true);
 
+  function handleChange (event) {
+    setValues(event.target.value);
+    setIsValid(event.target.closest("form").checkValidity());
+  };
+  
   useEffect(() => {
     function closeError(evt) {
       if (evt.key === 'Escape') {
@@ -30,12 +35,11 @@ function SearchForm({searchFilm}) {
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
-      searchFilm(values.search)
+      searchFilm(values)
   } else {
       setError('Нужно ввести ключевое слово');
   }
   };
-
 
   return (
     <section className="search">
@@ -47,7 +51,7 @@ function SearchForm({searchFilm}) {
           type="text"
           required
           placeholder="Фильм"
-          value={values.search || ''}
+          value={values || ''}
           onChange={handleChange}
           />
           <span className="search__form-error">{error}</span>

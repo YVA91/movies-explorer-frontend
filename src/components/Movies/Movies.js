@@ -9,8 +9,8 @@ import { useState, useEffect } from 'react';
 
 function Movies({onSaveMovie, loggedIn}) {
   const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')));
-  const [isNothingFound, setIsNothingFound] = useState(false);
-  const [isfilterCheckbox, setIsFilterCheckbox] = useState(false);
+  const [isNothingFound, setIsNothingFound] = useState({condition: false, text: '',});
+  const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkbox')));
   const [isPreloader, setIsPreloader] = useState(false);
   const width = window.innerWidth
   const [movieDisplay, setMovieDisplay] = useState(() => {
@@ -47,6 +47,7 @@ function Movies({onSaveMovie, loggedIn}) {
   function handleSearchFilm(text) {
     if (loggedIn) {
       localStorage.setItem('text', text)
+      setIsNothingFound({condition: false, text: '',})
       setIsPreloader(true)
       setFilterMovies([])
       getCreateMovies()
@@ -55,32 +56,30 @@ function Movies({onSaveMovie, loggedIn}) {
             const filter = movie.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
             localStorage.setItem('data',JSON.stringify(filter))
               if (filter == 0) { 
-                setIsNothingFound(true)
+                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
                 setFilterMovies(JSON.parse(localStorage.getItem('data')))
               } else {
                 setFilterMovies(JSON.parse(localStorage.getItem('data')))
-              setIsNothingFound(false)
+                setIsNothingFound({condition: false, text: '',})
               }
-        
-
             } else {
               const filter = movie.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
               localStorage.setItem('data',JSON.stringify(filter))
               if (filter == 0) { 
-                setIsNothingFound(true)
+                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
                 setFilterMovies(JSON.parse(localStorage.getItem('data')))
               } else {
                 setFilterMovies(JSON.parse(localStorage.getItem('data')))
-              setIsNothingFound(false)
+                setIsNothingFound({condition: false, text: '',})
               }
             }
-            
         })
         .catch((err) => {
+          setIsNothingFound({condition: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',});
           console.log(err);
         })
-        .finally(() => {
-          setIsPreloader(false)
+  .finally(() => {
+          setIsPreloader(false)      
         });
       }
   }
@@ -89,8 +88,10 @@ function Movies({onSaveMovie, loggedIn}) {
   function filterCheckbox() {
     if(isfilterCheckbox) {
       setIsFilterCheckbox(false)
+      localStorage.setItem('checkbox', JSON.stringify(false))
     } else {
       setIsFilterCheckbox(true)
+      localStorage.setItem('checkbox', JSON.stringify(true))
     }
   }
 
@@ -114,6 +115,8 @@ function Movies({onSaveMovie, loggedIn}) {
       <SearchForm 
       searchFilm={handleSearchFilm}/>
       <FilterCheckbox 
+      setIsFilterCheckbox={setIsFilterCheckbox}
+      isfilterCheckbox={isfilterCheckbox}
       filterCheckbox={filterCheckbox}/>
       <Preloader 
       isPreloader={isPreloader}/>
