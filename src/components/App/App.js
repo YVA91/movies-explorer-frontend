@@ -136,7 +136,6 @@ function App() {
   }
 
   function handleDeleteMovie(movie) {
-    console.log(movie._id)
     MainApi.deleteMovie(movie._id)
       .then(() => {
         setSaveMovies((state) => state.filter((c) => c._id !== movie._id));
@@ -166,6 +165,7 @@ function App() {
     MainApi.getSaveMovies()
       .then((movie) => {
         setSaveMovies(movie);
+        localStorage.setItem('dataSave',JSON.stringify(movie))
       })
       .catch((err) => {
         console.log(err);
@@ -206,11 +206,14 @@ function App() {
             }
           />
 
+
+
           <Route
             path="/saved-movies"
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
+                  setSaveMovies={setSaveMovies}
                   onDeleteMovie={handleDeleteMovie}
                   saveMovies={saveMovies}
                   isPreloader={isPreloader}
@@ -219,6 +222,9 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+
+
 
           <Route path="/signup">
             <Register

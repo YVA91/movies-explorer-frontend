@@ -7,12 +7,12 @@ import Preloader from '../Preloader/Preloader';
 import * as MainApi from '../../utils/MainApi';
 import { useState, useEffect } from 'react';
 
-function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
- /* const [filterMovies, setFilterMovies] = useState([]);
-  const [isNothingFound, setIsNothingFound] = useState(false);
-  const [isfilterCheckbox, setIsFilterCheckbox] = useState(localStorage.getItem('checkbox'));
-  const width = window.innerWidth
-  const [movieDisplay, setMovieDisplay] = useState(() => {
+function SavedMovies({ saveMovies, onDeleteMovie }) {
+const [isNothingFound, setIsNothingFound] = useState({condition: false, text: '',});
+const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkboxSave')));
+const [isPreloader, setIsPreloader] = useState(false);
+const width = window.innerWidth
+const [movieDisplay, setMovieDisplay] = useState(() => {
     if (width < 480) {
       return 5;
     } else if (width < 768) {
@@ -43,52 +43,60 @@ function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
     }
   }
 
-
-  useEffect(() => {
+  function handleSearchFilm(text) {
     if (loggedIn) {
-    setIsPreloader(true)
-    MainApi.getSaveMovies()
-      .then((movie) => {
-        setSaveMovies(movie);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsPreloader(false)
-      });
-    }
-  }, [loggedIn])
-
-  function filter (text) {
-    if (isfilterCheckbox) {
-    const filter = saveMovies.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
-      if (filter == 0) { 
-        setIsNothingFound(true)
-        setFilterMovies(filter)
-      } else {
-      setFilterMovies(filter)
-      setIsNothingFound(false)
+      handleMovieDisplay()
+      localStorage.setItem('textSave', text)
+      setIsNothingFound({condition: false, text: '',})
+      setIsPreloader(true)
+      setFilterMovies([])
+      getCreateMovies()
+        .then((movie) => {
+          if (isfilterCheckbox) {
+            const filter = saveMovies.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
+            localStorage.setItem('dataSave',JSON.stringify(filter))
+              if (filter == 0) { 
+                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
+                setSaveMovies(JSON.parse(localStorage.getItem('dataSave')))
+              } else {
+                setSaveMovies(JSON.parse(localStorage.getItem('dataSave')))
+                setIsNothingFound({condition: false, text: '',})
+              }
+            } else {
+              const filter = saveMovies.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
+              localStorage.setItem('dataSave',JSON.stringify(filter))
+              if (filter == 0) { 
+                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
+                setFilterMovies(JSON.parse(localStorage.getItem('dataSave')))
+              } else {
+                setFilterMovies(JSON.parse(localStorage.getItem('dataSave')))
+                setIsNothingFound({condition: false, text: '',})
+              }
+            }
+        })
+        .catch((err) => {
+          setIsNothingFound({condition: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',});
+          console.log(err);
+        })
+  .finally(() => {
+          setIsPreloader(false)      
+        });
       }
-    } else {
-      const filter = saveMovies.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
-      if (filter == 0) { 
-        setIsNothingFound(true)
-        setFilterMovies(filter)
-      } else {
-      setFilterMovies(filter)
-      setIsNothingFound(false)
-      }
-    }
   }
+
 
   function filterCheckbox() {
-    if(isfilterCheckbox) {
-      setIsFilterCheckbox(false)
-    } else {
-      setIsFilterCheckbox(true)
-    }
-  }
+
+      if(isfilterCheckbox) {
+        setIsFilterCheckbox(false)
+        localStorage.setItem('checkboxSave', JSON.stringify(false))
+      } else {
+        setIsFilterCheckbox(true)
+        localStorage.setItem('checkboxSave', JSON.stringify(true))
+      }
+    } 
+
+
 
   useEffect(() => {
     window.addEventListener("resize", function () {
@@ -96,18 +104,18 @@ function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
     });
   }, []);
 
-  const moviesScreen = filterMovies.slice(0, movieDisplay);
+  const moviesScreen = quantityfilms ()
+  function quantityfilms () {
+    if (filterMovies===null) {
+      return []
+    } else {
+      return filterMovies.slice(0, movieDisplay);
+    }
+  }
 
 
 
 
-
-
-
-
-
-
-*/
 
   return (
     <main>
@@ -120,7 +128,7 @@ function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
       <Preloader 
       isPreloader={isPreloader}/>
       <FoundNothing
-     // isNothingFound={isNothingFound}
+      isNothingFound={isNothingFound}
      />
       <MoviesCardList
         onDeleteMovie={onDeleteMovie}

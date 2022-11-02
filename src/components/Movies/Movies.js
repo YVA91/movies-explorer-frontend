@@ -63,7 +63,6 @@ function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
                 setFilterMovies(JSON.parse(localStorage.getItem('data')))
                 setIsNothingFound({condition: false, text: '',})
               }
-              
             } else {
               const filter = movie.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
               localStorage.setItem('data',JSON.stringify(filter))
@@ -88,14 +87,17 @@ function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
 
 
   function filterCheckbox() {
-    if(isfilterCheckbox) {
-      setIsFilterCheckbox(false)
-      localStorage.setItem('checkbox', JSON.stringify(false))
-    } else {
-      setIsFilterCheckbox(true)
-      localStorage.setItem('checkbox', JSON.stringify(true))
-    }
-  }
+
+      if(isfilterCheckbox) {
+        setIsFilterCheckbox(false)
+        localStorage.setItem('checkbox', JSON.stringify(false))
+      } else {
+        setIsFilterCheckbox(true)
+        localStorage.setItem('checkbox', JSON.stringify(true))
+      }
+    } 
+
+
 
   useEffect(() => {
     window.addEventListener("resize", function () {
