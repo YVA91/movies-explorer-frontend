@@ -1,7 +1,7 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-function MoviesCardList({ movies, still, onSaveMovie, onDeleteMovie }) {
+function MoviesCardList({ movies, still, onSaveMovie, onDeleteMovie, filterMovies, movieDisplay, saveMovies }) {
 
   return (
     <section className='moviescardlist'>
@@ -9,6 +9,7 @@ function MoviesCardList({ movies, still, onSaveMovie, onDeleteMovie }) {
         {movies.map((movie) => {
           return (
             <MoviesCard
+            saveMovies={saveMovies}
               onSaveMovie={onSaveMovie}
               onDeleteMovie={onDeleteMovie}
               key={movie.id || movie._id}
@@ -17,9 +18,12 @@ function MoviesCardList({ movies, still, onSaveMovie, onDeleteMovie }) {
           })
         }
       </div>
-      <button type='button' className='moviescardlist__button' onClick={still}>Ещё</button>
+
+      <button type='button' className={`moviescardlist__button ${filterMovies.length<=movieDisplay &&  'moviescardlist__button_visible' }`} onClick={still}>Ещё</button>
     </section>
   );
 }
 
 export default MoviesCardList
+
+

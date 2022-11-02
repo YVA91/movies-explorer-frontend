@@ -127,6 +127,7 @@ function App() {
   function handleSaveMovie(movie) {
     MainApi.postSaveMovie(movie)
       .then((data) => {
+        setSaveMovies(oldArray => [...oldArray, data]);
         console.log(data)
       })
       .catch((err) => {
@@ -135,6 +136,7 @@ function App() {
   }
 
   function handleDeleteMovie(movie) {
+    console.log(movie._id)
     MainApi.deleteMovie(movie._id)
       .then(() => {
         setSaveMovies((state) => state.filter((c) => c._id !== movie._id));
@@ -158,6 +160,23 @@ function App() {
 
 
 
+  useEffect(() => {
+    if (loggedIn) {
+    setIsPreloader(true)
+    MainApi.getSaveMovies()
+      .then((movie) => {
+        setSaveMovies(movie);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        setIsPreloader(false)
+      });
+    }
+  }, [loggedIn,])
+
+
 
 
   return (
@@ -179,6 +198,8 @@ function App() {
                 <Movies
                   loggedIn={loggedIn}
                   onSaveMovie={handleSaveMovie}
+                  onDeleteMovie={handleDeleteMovie}
+                  saveMovies={saveMovies}
                 />
                 <Footer />
               </ProtectedRoute>

@@ -1,7 +1,8 @@
 import './MoviesCard.css'
 import { Route } from 'react-router-dom';
 
-function MoviesCard({ movie, onSaveMovie, onDeleteMovie }) {
+function MoviesCard({ movie, onSaveMovie, onDeleteMovie, saveMovies }) {
+  const isSaveMovie = saveMovies.some((m) => m.movieId === movie.id);
 
   function text() {
     const time = movie.duration.toString().split('').pop()
@@ -10,14 +11,12 @@ function MoviesCard({ movie, onSaveMovie, onDeleteMovie }) {
     else { return 'минут' }
   }
 
-
-function savedMovies() {
-  onSaveMovie(movie)
-}
-
-function deleteMovies() {
-  onDeleteMovie(movie)
-  console.log(movie)
+function actionWithMovie() {
+  if(!isSaveMovie) {
+    onSaveMovie(movie)
+  } else {
+   onDeleteMovie(saveMovies.filter((m) => m.movieId === movie.id)[0])
+  }
 }
 
 
@@ -36,10 +35,14 @@ function deleteMovies() {
         </Route>
       </a>
       <Route exact path="/movies">
-        <button className='moviescard__button /*moviescard__button_save*/' type="button" onClick={savedMovies}>Сохранить</button>
+        <button className={`moviescard__button ${isSaveMovie ? 'moviescard__button_save' : '' }`} type="button" 
+        onClick={actionWithMovie}>{isSaveMovie ? '' : 'Сохранить' }</button>
+  
+
+
       </Route>
       <Route exact path="/saved-movies">
-        <button className='moviescard__button moviescard__button_delete' type="button" onClick={deleteMovies}></button>
+        <button className='moviescard__button moviescard__button_delete' type="button" ></button>
       </Route>
     </section>
   );

@@ -8,7 +8,7 @@ import * as MainApi from '../../utils/MainApi';
 import { useState, useEffect } from 'react';
 
 function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
-  const [filterMovies, setFilterMovies] = useState([]);
+ /* const [filterMovies, setFilterMovies] = useState([]);
   const [isNothingFound, setIsNothingFound] = useState(false);
   const [isfilterCheckbox, setIsFilterCheckbox] = useState(localStorage.getItem('checkbox'));
   const width = window.innerWidth
@@ -107,21 +107,24 @@ function SavedMovies({ isPreloader, saveMovies, onDeleteMovie }) {
 
 
 
-
+*/
 
   return (
     <main>
       <SearchForm 
-      filter={filter}/>
+   //   filter={filter}
+   />
       <FilterCheckbox 
-      filterCheckbox={filterCheckbox}/>
+     // filterCheckbox={filterCheckbox}
+     />
       <Preloader 
       isPreloader={isPreloader}/>
       <FoundNothing
-      isNothingFound={isNothingFound}/>
+     // isNothingFound={isNothingFound}
+     />
       <MoviesCardList
         onDeleteMovie={onDeleteMovie}
-        movies={moviesScreen}
+       // movies={moviesScreen}
       />
     </main>
   );

@@ -7,8 +7,8 @@ import FoundNothing from '../FoundNothing/FoundNothing'
 import { getCreateMovies } from '../../utils/MoviesApi'
 import { useState, useEffect } from 'react';
 
-function Movies({onSaveMovie, loggedIn}) {
-  const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')));
+function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
+  const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')) || []);
   const [isNothingFound, setIsNothingFound] = useState({condition: false, text: '',});
   const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkbox')));
   const [isPreloader, setIsPreloader] = useState(false);
@@ -46,6 +46,7 @@ function Movies({onSaveMovie, loggedIn}) {
 
   function handleSearchFilm(text) {
     if (loggedIn) {
+      handleMovieDisplay()
       localStorage.setItem('text', text)
       setIsNothingFound({condition: false, text: '',})
       setIsPreloader(true)
@@ -62,6 +63,7 @@ function Movies({onSaveMovie, loggedIn}) {
                 setFilterMovies(JSON.parse(localStorage.getItem('data')))
                 setIsNothingFound({condition: false, text: '',})
               }
+              
             } else {
               const filter = movie.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
               localStorage.setItem('data',JSON.stringify(filter))
@@ -110,6 +112,8 @@ function Movies({onSaveMovie, loggedIn}) {
     }
   }
 
+ 
+
   return (
     <main>
       <SearchForm 
@@ -123,9 +127,14 @@ function Movies({onSaveMovie, loggedIn}) {
       <FoundNothing
       isNothingFound={isNothingFound}/>
       <MoviesCardList
-        onSaveMovie={onSaveMovie}
+      saveMovies={saveMovies}
+      onSaveMovie={onSaveMovie}
+      onDeleteMovie={onDeleteMovie}
         movies={moviesScreen}
         still={handleStill}
+        filterMovies={filterMovies}
+        movieDisplay={movieDisplay}
+
         />
     </main>
   );
