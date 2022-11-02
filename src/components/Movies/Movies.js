@@ -12,6 +12,7 @@ function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
   const [isNothingFound, setIsNothingFound] = useState({condition: false, text: '',});
   const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkbox')));
   const [isPreloader, setIsPreloader] = useState(false);
+  const valueMovies = localStorage.getItem(`text`)
   const width = window.innerWidth
   const [movieDisplay, setMovieDisplay] = useState(() => {
     if (width < 480) {
@@ -119,7 +120,9 @@ function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
   return (
     <main>
       <SearchForm 
-      searchFilm={handleSearchFilm}/>
+      searchFilm={handleSearchFilm}
+      textValue={valueMovies}
+      />
       <FilterCheckbox 
       setIsFilterCheckbox={setIsFilterCheckbox}
       isfilterCheckbox={isfilterCheckbox}

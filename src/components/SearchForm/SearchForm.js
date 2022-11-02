@@ -3,9 +3,9 @@ import search from '../../images/icon.png'
 import { useState, useEffect } from "react";
 
 
-function SearchForm({searchFilm}) {
+function SearchForm({searchFilm, textValue}) {
   const [error, setError] = useState('');
-  const [values, setValues] = useState(localStorage.getItem(`text`));
+  const [values, setValues] = useState(textValue);
   const [isValid, setIsValid] = useState(true);
 
   function handleChange (event) {

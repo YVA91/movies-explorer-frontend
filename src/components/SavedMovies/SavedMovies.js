@@ -4,114 +4,53 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import FoundNothing from '../FoundNothing/FoundNothing';
 import Preloader from '../Preloader/Preloader';
-import * as MainApi from '../../utils/MainApi';
 import { useState, useEffect } from 'react';
 
-function SavedMovies({ saveMovies, onDeleteMovie }) {
+function SavedMovies({ saveMovies, onDeleteMovie, filterSaveMovies, setFilterSaveMovies}) {
 const [isNothingFound, setIsNothingFound] = useState({condition: false, text: '',});
-const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkboxSave')));
+const [isfilterCheckboxSave, setIsFilterCheckboxSave] = useState(JSON.parse(localStorage.getItem('checkboxSave')));
 const [isPreloader, setIsPreloader] = useState(false);
-const width = window.innerWidth
-const [movieDisplay, setMovieDisplay] = useState(() => {
-    if (width < 480) {
-      return 5;
-    } else if (width < 768) {
-      return 8;
-    } else if (width > 768) {
-      return 12;
-    }
-  });
+const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')) || []);
 
-  function handleMovieDisplay() {
-    const width = window.innerWidth
-    if (width < 480) {
-      setMovieDisplay(5);
-    } else if (width < 768) {
-      setMovieDisplay(8);
-    } else if (width > 768) {
-      setMovieDisplay(12);
-    }
-  }
 
-  function handleStill() {
-    if (width < 480) {
-      setMovieDisplay(movieDisplay + 1);
-    } else if (width < 768) {
-      setMovieDisplay(movieDisplay + 2);
-    } else if (width > 768) {
-      setMovieDisplay(movieDisplay + 3);
-    }
-  }
+
+
+
+
+
 
   function handleSearchFilm(text) {
-    if (loggedIn) {
-      handleMovieDisplay()
-      localStorage.setItem('textSave', text)
-      setIsNothingFound({condition: false, text: '',})
-      setIsPreloader(true)
-      setFilterMovies([])
-      getCreateMovies()
-        .then((movie) => {
-          if (isfilterCheckbox) {
-            const filter = saveMovies.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
-            localStorage.setItem('dataSave',JSON.stringify(filter))
-              if (filter == 0) { 
-                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
-                setSaveMovies(JSON.parse(localStorage.getItem('dataSave')))
-              } else {
-                setSaveMovies(JSON.parse(localStorage.getItem('dataSave')))
-                setIsNothingFound({condition: false, text: '',})
-              }
-            } else {
-              const filter = saveMovies.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
-              localStorage.setItem('dataSave',JSON.stringify(filter))
-              if (filter == 0) { 
-                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
-                setFilterMovies(JSON.parse(localStorage.getItem('dataSave')))
-              } else {
-                setFilterMovies(JSON.parse(localStorage.getItem('dataSave')))
-                setIsNothingFound({condition: false, text: '',})
-              }
-            }
-        })
-        .catch((err) => {
-          setIsNothingFound({condition: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',});
-          console.log(err);
-        })
-  .finally(() => {
-          setIsPreloader(false)      
-        });
-      }
+    const saveMoviesNew = saveMovies
+    console.log(text)
+    if (isfilterCheckboxSave) {
+      const filter = saveMoviesNew.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
+      setFilterSaveMovies(filter)
+        if (filter  == 0) { 
+          setIsNothingFound({condition: true, text: 'Ничего не найдено',});
+        } else {
+          setIsNothingFound({condition: false, text: '',})
+        }
+      } else {
+        const filter  = saveMoviesNew.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
+        setFilterSaveMovies(filter)
+        if (filter == 0) { 
+          setIsNothingFound({condition: true, text: 'Ничего не найдено',});
+        } else {
+          setIsNothingFound({condition: false, text: '',})
+        }
   }
-
+}
 
   function filterCheckbox() {
 
-      if(isfilterCheckbox) {
-        setIsFilterCheckbox(false)
-        localStorage.setItem('checkboxSave', JSON.stringify(false))
+      if(isfilterCheckboxSave) {
+        setIsFilterCheckboxSave(false)
       } else {
-        setIsFilterCheckbox(true)
-        localStorage.setItem('checkboxSave', JSON.stringify(true))
+        setIsFilterCheckboxSave(true)
       }
     } 
 
 
-
-  useEffect(() => {
-    window.addEventListener("resize", function () {
-      setTimeout(handleMovieDisplay, 1000);
-    });
-  }, []);
-
-  const moviesScreen = quantityfilms ()
-  function quantityfilms () {
-    if (filterMovies===null) {
-      return []
-    } else {
-      return filterMovies.slice(0, movieDisplay);
-    }
-  }
 
 
 
@@ -119,11 +58,13 @@ const [movieDisplay, setMovieDisplay] = useState(() => {
 
   return (
     <main>
-      <SearchForm 
-   //   filter={filter}
+      <SearchForm
+      searchFilm={handleSearchFilm}
+      textValue={''}
    />
       <FilterCheckbox 
-     // filterCheckbox={filterCheckbox}
+      //isfilterCheckbox={false}
+      filterCheckbox={filterCheckbox}
      />
       <Preloader 
       isPreloader={isPreloader}/>
@@ -131,8 +72,10 @@ const [movieDisplay, setMovieDisplay] = useState(() => {
       isNothingFound={isNothingFound}
      />
       <MoviesCardList
-        onDeleteMovie={onDeleteMovie}
-       // movies={moviesScreen}
+      filterMovies={filterMovies}
+      saveMovies={saveMovies}
+      movies={filterSaveMovies}
+      onDeleteMovie={onDeleteMovie}
       />
     </main>
   );

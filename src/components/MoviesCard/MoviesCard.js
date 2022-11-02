@@ -19,6 +19,10 @@ function actionWithMovie() {
   }
 }
 
+function hadleDeleteMovie() {
+  onDeleteMovie(movie)
+}
+
 
   return (
     <section className='moviescard'>
@@ -37,12 +41,9 @@ function actionWithMovie() {
       <Route exact path="/movies">
         <button className={`moviescard__button ${isSaveMovie ? 'moviescard__button_save' : '' }`} type="button" 
         onClick={actionWithMovie}>{isSaveMovie ? '' : 'Сохранить' }</button>
-  
-
-
       </Route>
       <Route exact path="/saved-movies">
-        <button className='moviescard__button moviescard__button_delete' type="button" ></button>
+        <button className='moviescard__button moviescard__button_delete' type="button" onClick={hadleDeleteMovie}></button>
       </Route>
     </section>
   );

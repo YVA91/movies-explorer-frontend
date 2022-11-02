@@ -25,6 +25,9 @@ function App() {
   const [isPreloader, setIsPreloader] = useState(false);
 
 
+  const [filterSaveMovies, setFilterSaveMovies] = useState([]);
+
+
 
   function handleOpenMenuClick() {
     if (isOpenMenu === false) {
@@ -128,7 +131,7 @@ function App() {
     MainApi.postSaveMovie(movie)
       .then((data) => {
         setSaveMovies(oldArray => [...oldArray, data]);
-        console.log(data)
+        setFilterSaveMovies(oldArray => [...oldArray, data]);
       })
       .catch((err) => {
         console.log(err)
@@ -139,6 +142,7 @@ function App() {
     MainApi.deleteMovie(movie._id)
       .then(() => {
         setSaveMovies((state) => state.filter((c) => c._id !== movie._id));
+        setFilterSaveMovies((state) => state.filter((c) => c._id !== movie._id));
       })
       .catch((err) => {
         console.log(err)
@@ -153,9 +157,16 @@ function App() {
         localStorage.removeItem('data')
         localStorage.removeItem('text')
         localStorage.removeItem('checkbox')
+        localStorage.removeItem('dataSave')
+        localStorage.removeItem('textSave')
+        localStorage.removeItem('checkboxSave')
       })
       .catch(err => console.log(err))
   }
+
+
+
+
 
 
 
@@ -165,7 +176,7 @@ function App() {
     MainApi.getSaveMovies()
       .then((movie) => {
         setSaveMovies(movie);
-        localStorage.setItem('dataSave',JSON.stringify(movie))
+        setFilterSaveMovies(movie);
       })
       .catch((err) => {
         console.log(err);
@@ -175,6 +186,12 @@ function App() {
       });
     }
   }, [loggedIn,])
+
+
+
+
+
+
 
 
 
@@ -213,10 +230,11 @@ function App() {
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
+               setFilterSaveMovies={setFilterSaveMovies}
+                  filterSaveMovies={filterSaveMovies}
                   setSaveMovies={setSaveMovies}
                   onDeleteMovie={handleDeleteMovie}
                   saveMovies={saveMovies}
-                  isPreloader={isPreloader}
                 />
                 <Footer />
               </ProtectedRoute>
