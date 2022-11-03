@@ -1,11 +1,12 @@
 import './Navigation.css';
 import { Route, Link } from 'react-router-dom';
 
-function Navigation() {
+function Navigation({loggedIn}) {
 
   return (
     <>
-      <Route exact path="/">
+    { (!loggedIn) &&
+      <Route exact path={"/"}  >
         <nav className="navigation">
           <Link to="/signup" className="navigation__link">
             Регистрация
@@ -15,7 +16,9 @@ function Navigation() {
           </Link>
         </nav>
       </Route>
-      <Route exact path={["/movies", "/profile", "/saved-movies"]}>
+    }
+    { loggedIn &&
+      <Route exact path={["/movies", "/profile", "/saved-movies", "/" ]}>
         <nav className="navigation navigation_movies">
           <nav>
             <Link to="/movies" className="navigation__link-movies">
@@ -32,6 +35,7 @@ function Navigation() {
           </nav>
         </nav>
       </Route>
+    }
     </>
   );
 }

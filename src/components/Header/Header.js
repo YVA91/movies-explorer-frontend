@@ -3,7 +3,7 @@ import './Header.css';
 import { Route, Link } from 'react-router-dom';
 import Navigation from '../Navigation/Navigation'
 
-function Header({ onMenu }) {
+function Header({ onMenu, loggedIn }) {
 
   return (
     <>
@@ -11,17 +11,21 @@ function Header({ onMenu }) {
         <header className="header header_main ">
           <div className="header__container">
             <img className="header__logo" src={logo} alt="логотип" />
-            <Navigation />
+            <Navigation
+              loggedIn={loggedIn}
+            />
           </div>
         </header>
       </Route>
+
       <Route exact path={["/movies", "/profile", "/saved-movies"]}>
         <header className="header">
           <div className="header__container">
             <Link to="/" className="header__logo">
               <img src={logo} alt="логотип" />
             </Link>
-            <Navigation />
+            <Navigation
+              loggedIn={loggedIn} />
             <div className="header__burger" onClick={onMenu}>
               <span className="header__burger-item"></span>
               <span className="header__burger-item"></span>
@@ -30,6 +34,7 @@ function Header({ onMenu }) {
           </div>
         </header>
       </Route>
+
       <Route exact path={["/signup", "/signin"]} >
         <header className="header">
           <div className="header__container header__container_form">

@@ -11,18 +11,17 @@ function MoviesCard({ movie, onSaveMovie, onDeleteMovie, saveMovies }) {
     else { return 'минут' }
   }
 
-function actionWithMovie() {
-  if(!isSaveMovie) {
-    onSaveMovie(movie)
-  } else {
-   onDeleteMovie(saveMovies.filter((m) => m.movieId === movie.id)[0])
+  function actionWithMovie() {
+    if (!isSaveMovie) {
+      onSaveMovie(movie)
+    } else {
+      onDeleteMovie(saveMovies.filter((m) => m.movieId === movie.id)[0])
+    }
   }
-}
 
-function hadleDeleteMovie() {
-  onDeleteMovie(movie)
-}
-
+  function hadleDeleteMovie() {
+    onDeleteMovie(movie)
+  }
 
   return (
     <section className='moviescard'>
@@ -39,8 +38,8 @@ function hadleDeleteMovie() {
         </Route>
       </a>
       <Route exact path="/movies">
-        <button className={`moviescard__button ${isSaveMovie ? 'moviescard__button_save' : '' }`} type="button" 
-        onClick={actionWithMovie}>{isSaveMovie ? '' : 'Сохранить' }</button>
+        <button className={`moviescard__button ${isSaveMovie ? 'moviescard__button_save' : ''}`} type="button"
+          onClick={actionWithMovie}>{isSaveMovie ? '' : 'Сохранить'}</button>
       </Route>
       <Route exact path="/saved-movies">
         <button className='moviescard__button moviescard__button_delete' type="button" onClick={hadleDeleteMovie}></button>

@@ -1,10 +1,10 @@
 import './Login.css'
 import AuthForm from '../AuthForm/AuthForm';
 import { Link } from 'react-router-dom';
-import {useFormWithValidation} from '../../hooks/useFormWithValidation';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
 function Login({ onLogin, title, buttonText, errorServer }) {
-  const {values, handleChange, errors, isValid,  } = useFormWithValidation({})
+  const { values, handleChange, errors, isValid, } = useFormWithValidation({})
 
   function handleSubmit(e) {
     e.preventDefault();

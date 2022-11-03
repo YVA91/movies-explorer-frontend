@@ -7,7 +7,6 @@ function backClick() {
   window.history.back();
 }
 
-
   return (
     <section className='pageNotFound'>
       <h2 className='pageNotFound__title'>404</h2>

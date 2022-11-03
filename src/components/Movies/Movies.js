@@ -7,10 +7,10 @@ import FoundNothing from '../FoundNothing/FoundNothing'
 import { getCreateMovies } from '../../utils/MoviesApi'
 import { useState, useEffect } from 'react';
 
-function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
+function Movies({ onSaveMovie, loggedIn, saveMovies, onDeleteMovie }) {
   const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')) || []);
-  const [isNothingFound, setIsNothingFound] = useState({condition: false, text: '',});
-  const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkbox')));
+  const [isNothingFound, setIsNothingFound] = useState({ condition: false, text: '', });
+  const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkbox')) || false);
   const [isPreloader, setIsPreloader] = useState(false);
   const valueMovies = localStorage.getItem(`text`)
   const width = window.innerWidth
@@ -23,6 +23,12 @@ function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
       return 12;
     }
   });
+
+  useEffect(() => {
+    window.addEventListener("resize", function () {
+      setTimeout(handleMovieDisplay, 1000);
+    });
+  }, []);
 
   function handleMovieDisplay() {
     const width = window.innerWidth
@@ -49,98 +55,83 @@ function Movies({onSaveMovie, loggedIn, saveMovies, onDeleteMovie}) {
     if (loggedIn) {
       handleMovieDisplay()
       localStorage.setItem('text', text)
-      setIsNothingFound({condition: false, text: '',})
+      setIsNothingFound({ condition: false, text: '', })
       setIsPreloader(true)
       setFilterMovies([])
       getCreateMovies()
         .then((movie) => {
-          if (isfilterCheckbox) {
-            const filter = movie.filter(({ nameRU, duration  }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration<=40));
-            localStorage.setItem('data',JSON.stringify(filter))
-              if (filter == 0) { 
-                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
-                setFilterMovies(JSON.parse(localStorage.getItem('data')))
-              } else {
-                setFilterMovies(JSON.parse(localStorage.getItem('data')))
-                setIsNothingFound({condition: false, text: '',})
-              }
+          if (JSON.parse(localStorage.getItem('checkbox'))) {
+            const filter = movie.filter(({ nameRU, duration }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration <= 40));
+            localStorage.setItem('data', JSON.stringify(filter))
+            if (filter == 0) {
+              setIsNothingFound({ condition: true, text: 'Ничего не найдено', });
+              setFilterMovies(JSON.parse(localStorage.getItem('data')))
             } else {
-              const filter = movie.filter(({ nameRU}) => nameRU.toLowerCase().includes(text.toLowerCase()));
-              localStorage.setItem('data',JSON.stringify(filter))
-              if (filter == 0) { 
-                setIsNothingFound({condition: true, text: 'Ничего не найдено',});
-                setFilterMovies(JSON.parse(localStorage.getItem('data')))
-              } else {
-                setFilterMovies(JSON.parse(localStorage.getItem('data')))
-                setIsNothingFound({condition: false, text: '',})
-              }
+              setFilterMovies(JSON.parse(localStorage.getItem('data')))
+              setIsNothingFound({ condition: false, text: '', })
             }
+          } else {
+            const filter = movie.filter(({ nameRU }) => nameRU.toLowerCase().includes(text.toLowerCase()));
+            localStorage.setItem('data', JSON.stringify(filter))
+            if (filter == 0) {
+              setIsNothingFound({ condition: true, text: 'Ничего не найдено', });
+              setFilterMovies(JSON.parse(localStorage.getItem('data')))
+            } else {
+              setFilterMovies(JSON.parse(localStorage.getItem('data')))
+              setIsNothingFound({ condition: false, text: '', })
+            }
+          }
         })
         .catch((err) => {
-          setIsNothingFound({condition: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',});
+          setIsNothingFound({ condition: true, text: 'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз', });
           console.log(err);
         })
-  .finally(() => {
-          setIsPreloader(false)      
+        .finally(() => {
+          setIsPreloader(false)
         });
-      }
+    }
   }
 
-
   function filterCheckbox() {
+    setIsFilterCheckbox(!isfilterCheckbox)
+    localStorage.setItem('checkbox', JSON.stringify(!isfilterCheckbox))
+    if (valueMovies != null) {
+      handleSearchFilm(localStorage.getItem(`text`))
+    }
+  }
 
-      if(isfilterCheckbox) {
-        setIsFilterCheckbox(false)
-        localStorage.setItem('checkbox', JSON.stringify(false))
-      } else {
-        setIsFilterCheckbox(true)
-        localStorage.setItem('checkbox', JSON.stringify(true))
-      }
-    } 
-
-
-
-  useEffect(() => {
-    window.addEventListener("resize", function () {
-      setTimeout(handleMovieDisplay, 1000);
-    });
-  }, []);
-
-  const moviesScreen = quantityfilms ()
-  function quantityfilms () {
-    if (filterMovies===null) {
+  const moviesScreen = quantityfilms()
+  function quantityfilms() {
+    if (filterMovies === null) {
       return []
     } else {
       return filterMovies.slice(0, movieDisplay);
     }
   }
 
- 
-
   return (
     <main>
-      <SearchForm 
-      searchFilm={handleSearchFilm}
-      textValue={valueMovies}
+      <SearchForm
+        searchFilm={handleSearchFilm}
+        textValue={valueMovies}
       />
-      <FilterCheckbox 
-      setIsFilterCheckbox={setIsFilterCheckbox}
-      isfilterCheckbox={isfilterCheckbox}
-      filterCheckbox={filterCheckbox}/>
-      <Preloader 
-      isPreloader={isPreloader}/>
+      <FilterCheckbox
+        setIsFilterCheckbox={setIsFilterCheckbox}
+        isfilterCheckbox={isfilterCheckbox}
+        filterCheckbox={filterCheckbox} />
+      <Preloader
+        isPreloader={isPreloader} />
       <FoundNothing
-      isNothingFound={isNothingFound}/>
+        isNothingFound={isNothingFound} />
       <MoviesCardList
-      saveMovies={saveMovies}
-      onSaveMovie={onSaveMovie}
-      onDeleteMovie={onDeleteMovie}
+        saveMovies={saveMovies}
+        onSaveMovie={onSaveMovie}
+        onDeleteMovie={onDeleteMovie}
         movies={moviesScreen}
         still={handleStill}
         filterMovies={filterMovies}
         movieDisplay={movieDisplay}
-
-        />
+      />
     </main>
   );
 }

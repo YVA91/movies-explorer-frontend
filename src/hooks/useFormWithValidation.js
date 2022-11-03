@@ -1,5 +1,4 @@
-import { useState, useCallback, useEffect  } from 'react';
-
+import { useState, useCallback, useEffect } from 'react';
 
 export function useFormWithValidation() {
   const [values, setValues] = useState({});
@@ -15,8 +14,8 @@ export function useFormWithValidation() {
     } else {
       target.setCustomValidity('');
     }
-    setValues({...values, [name]: value});
-    setErrors({...errors, [name]: target.validationMessage });
+    setValues({ ...values, [name]: value });
+    setErrors({ ...errors, [name]: target.validationMessage });
     setIsValid(target.closest("form").checkValidity());
   };
 
@@ -31,5 +30,5 @@ export function useFormWithValidation() {
 
 
 
-  return { values, handleChange, errors, isValid, resetForm, setValues};
+  return { values, handleChange, errors, isValid, resetForm, setValues };
 }

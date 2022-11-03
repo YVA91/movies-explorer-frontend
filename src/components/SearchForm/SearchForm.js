@@ -2,17 +2,11 @@ import './SearchForm.css';
 import search from '../../images/icon.png'
 import { useState, useEffect } from "react";
 
-
-function SearchForm({searchFilm, textValue}) {
+function SearchForm({ searchFilm, textValue }) {
   const [error, setError] = useState('');
   const [values, setValues] = useState(textValue);
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = useState((textValue === null) ? false : true);
 
-  function handleChange (event) {
-    setValues(event.target.value);
-    setIsValid(event.target.closest("form").checkValidity());
-  };
-  
   useEffect(() => {
     function closeError(evt) {
       if (evt.key === 'Escape') {
@@ -23,8 +17,8 @@ function SearchForm({searchFilm, textValue}) {
       }
     }
     if (!isValid) {
-        document.addEventListener('keydown', closeError);
-        document.addEventListener("mousedown", closeError)
+      document.addEventListener('keydown', closeError);
+      document.addEventListener("mousedown", closeError)
       return () => {
         document.removeEventListener('keydown', closeError);
         document.removeEventListener("mousedown", closeError);
@@ -32,13 +26,18 @@ function SearchForm({searchFilm, textValue}) {
     }
   })
 
+  function handleChange(event) {
+    setValues(event.target.value);
+    setIsValid(event.target.closest("form").checkValidity());
+  };
+
   function handleSubmit(e) {
     e.preventDefault();
     if (isValid) {
       searchFilm(values)
-  } else {
+    } else {
       setError('Нужно ввести ключевое слово');
-  }
+    }
   };
 
   return (
@@ -53,8 +52,8 @@ function SearchForm({searchFilm, textValue}) {
           placeholder="Фильм"
           value={values || ''}
           onChange={handleChange}
-          />
-          <span className="search__form-error">{error}</span>
+        />
+        <span className="search__form-error">{error}</span>
         <button className="search_form-button" type="submit">Найти</button>
       </form>
     </section>

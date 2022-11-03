@@ -23,18 +23,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPreloader, setIsPreloader] = useState(false);
-
-
   const [filterSaveMovies, setFilterSaveMovies] = useState([]);
-
-
-
-  function handleOpenMenuClick() {
-    if (isOpenMenu === false) {
-      setisOpenMenu(true)
-    } else
-      setisOpenMenu(false)
-  }
 
   useEffect(() => {
     function closeByEscapeAndOverlay(evt) {
@@ -73,6 +62,29 @@ function App() {
     })
   }, [history]);
 
+  useEffect(() => {
+    if (loggedIn) {
+      setIsPreloader(true)
+      MainApi.getSaveMovies()
+        .then((movie) => {
+          setSaveMovies(movie);
+          setFilterSaveMovies(movie);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsPreloader(false)
+        });
+    }
+  }, [loggedIn,])
+
+  function handleOpenMenuClick() {
+    if (isOpenMenu === false) {
+      setisOpenMenu(true)
+    } else
+      setisOpenMenu(false)
+  }
 
   function handleSubmitRegister(email, password, name) {
     MainApi.register(email, password, name)
@@ -89,7 +101,6 @@ function App() {
         } else {
           setErrorServer('Что-то пошло не так')
         }
-
       })
       .finally(() => {
       });
@@ -116,7 +127,7 @@ function App() {
     MainApi.patchUserInfo(email, name)
       .then((data) => {
         setCurrentUser(data)
-        setErrorServer('');
+        setErrorServer('Данные успешно обновлены');
       })
       .catch((err) => {
         if (err === 409) {
@@ -157,49 +168,35 @@ function App() {
         localStorage.removeItem('data')
         localStorage.removeItem('text')
         localStorage.removeItem('checkbox')
-        localStorage.removeItem('dataSave')
-        localStorage.removeItem('textSave')
-        localStorage.removeItem('checkboxSave')
       })
       .catch(err => console.log(err))
   }
 
-
-
-
-
-
-
   useEffect(() => {
     if (loggedIn) {
-    setIsPreloader(true)
-    MainApi.getSaveMovies()
-      .then((movie) => {
-        setSaveMovies(movie);
-        setFilterSaveMovies(movie);
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        setIsPreloader(false)
-      });
+      setIsPreloader(true)
+      MainApi.getSaveMovies()
+        .then((movie) => {
+          setSaveMovies(movie);
+          setFilterSaveMovies(movie);
+        })
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => {
+          setIsPreloader(false)
+        });
     }
   }, [loggedIn,])
-
-
-
-
-
-
-
-
-
 
   return (
     <>
       <CurrentUserContext.Provider value={currentUser} >
         <Header
+
+
+          loggedIn={loggedIn}
+
           onMenu={handleOpenMenuClick}
         />
         <Switch>
@@ -222,15 +219,13 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-
-
+          
           <Route
             path="/saved-movies"
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <SavedMovies
-               setFilterSaveMovies={setFilterSaveMovies}
+                  setFilterSaveMovies={setFilterSaveMovies}
                   filterSaveMovies={filterSaveMovies}
                   setSaveMovies={setSaveMovies}
                   onDeleteMovie={handleDeleteMovie}
@@ -240,9 +235,6 @@ function App() {
               </ProtectedRoute>
             }
           />
-
-
-
 
           <Route path="/signup">
             <Register
@@ -266,10 +258,10 @@ function App() {
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <Profile
-              onUpdateUser={handleUpdateUser}
-              errorServer={errorServer}
-              onExit={handleExit}
-            />
+                  onUpdateUser={handleUpdateUser}
+                  errorServer={errorServer}
+                  onExit={handleExit}
+                />
               </ProtectedRoute>
             }
           />

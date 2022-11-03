@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 
 function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordValue, nameValue, nameName, nameEmail, namePassword, error, isValid, errorServer}) {
 
-
   return (
     <form className='authform' onSubmit={onSubmit} noValidate>
       <h2 className='authform__title'>{title}</h2>
