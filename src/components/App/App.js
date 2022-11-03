@@ -193,10 +193,7 @@ function App() {
     <>
       <CurrentUserContext.Provider value={currentUser} >
         <Header
-
-
           loggedIn={loggedIn}
-
           onMenu={handleOpenMenuClick}
         />
         <Switch>
@@ -219,7 +216,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
+
           <Route
             path="/saved-movies"
             children={
