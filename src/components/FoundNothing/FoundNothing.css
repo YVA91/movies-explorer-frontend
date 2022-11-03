@@ -6,10 +6,10 @@
   display:flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  max-width: 1280px;
   height: 100%;
-  padding: 0;
-  margin: 0
+  padding:  0 20px;
+  margin: 0 auto;
 }
 
 .foundnothing__text {
