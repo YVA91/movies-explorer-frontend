@@ -13,11 +13,12 @@ function Header({ onMenu, loggedIn }) {
             <img className="header__logo" src={logo} alt="логотип" />
             <Navigation
               loggedIn={loggedIn}
+              onMenu={onMenu}
             />
           </div>
         </header>
       </Route>
-
+  
       <Route exact path={["/movies", "/profile", "/saved-movies"]}>
         <header className="header">
           <div className="header__container">
@@ -25,12 +26,8 @@ function Header({ onMenu, loggedIn }) {
               <img src={logo} alt="логотип" />
             </Link>
             <Navigation
-              loggedIn={loggedIn} />
-            <div className="header__burger" onClick={onMenu}>
-              <span className="header__burger-item"></span>
-              <span className="header__burger-item"></span>
-              <span className="header__burger-item"></span>
-            </div>
+              loggedIn={loggedIn} 
+              onMenu={onMenu}/>
           </div>
         </header>
       </Route>
