@@ -1,4 +1,4 @@
-const BASE_URL = /*'https://api.yva.diploma.nomoredomains.icu'*/  'http://localhost:3001';
+const BASE_URL = 'https://api.yva.diploma.nomoredomains.icu';
 
 const report = (res) => {
   if (res.ok) {
