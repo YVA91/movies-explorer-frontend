@@ -10,7 +10,7 @@ import Menu from '../Menu/Menu';
 import Profile from '../Profile/Profile'
 import SavedMovies from '../SavedMovies/SavedMovies'
 import * as MainApi from '../../utils/MainApi';
-import { Route, Switch, useHistory } from 'react-router-dom';
+import { Route, Switch, useHistory, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -24,6 +24,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [isPreloader, setIsPreloader] = useState(false);
   const [filterSaveMovies, setFilterSaveMovies] = useState([]);
+  const [inputdisabled, setInputdisabled] = useState(true);
 
   useEffect(() => {
     function closeByEscapeAndOverlay(evt) {
@@ -48,7 +49,6 @@ function App() {
     MainApi.getUserInfo()
       .then((data) => {
         setCurrentUser(data)
-        history.push('/movies')
         setLoggedIn(true)
       })
       .catch((err) => {
@@ -87,6 +87,7 @@ function App() {
   }
 
   function handleSubmitRegister(email, password, name) {
+    setInputdisabled(false)
     MainApi.register(email, password, name)
       .then((data) => {
         history.push('/movies')
@@ -103,10 +104,12 @@ function App() {
         }
       })
       .finally(() => {
+        setInputdisabled(true)
       });
   }
 
   function handleSubmitAuthorize(email, password) {
+    setInputdisabled(false)
     MainApi.authorize(email, password)
       .then((data) => {
         setCurrentUser(data)
@@ -121,9 +124,13 @@ function App() {
           setErrorServer('Что-то пошло не так')
         }
       })
+      .finally(() => {
+        setInputdisabled(true)
+      });
   }
 
   function handleUpdateUser(email, name) {
+    setInputdisabled(false)
     MainApi.patchUserInfo(email, name)
       .then((data) => {
         setCurrentUser(data)
@@ -136,6 +143,9 @@ function App() {
           setErrorServer('Что-то пошло не так')
         }
       })
+      .finally(() => {
+        setInputdisabled(true)
+      });
   }
 
   function handleSaveMovie(movie) {
@@ -168,6 +178,7 @@ function App() {
         localStorage.removeItem('data')
         localStorage.removeItem('text')
         localStorage.removeItem('checkbox')
+        setCurrentUser({})
       })
       .catch(err => console.log(err))
   }
@@ -207,10 +218,12 @@ function App() {
             children={
               <ProtectedRoute loggedIn={loggedIn}>
                 <Movies
+                  inputdisabled={inputdisabled}
                   loggedIn={loggedIn}
                   onSaveMovie={handleSaveMovie}
                   onDeleteMovie={handleDeleteMovie}
                   saveMovies={saveMovies}
+                  setInputdisabled={setInputdisabled}
                 />
                 <Footer />
               </ProtectedRoute>
@@ -227,6 +240,8 @@ function App() {
                   setSaveMovies={setSaveMovies}
                   onDeleteMovie={handleDeleteMovie}
                   saveMovies={saveMovies}
+                  setInputdisabled={setInputdisabled}
+                  inputdisabled={inputdisabled}
                 />
                 <Footer />
               </ProtectedRoute>
@@ -234,21 +249,26 @@ function App() {
           />
 
           <Route path="/signup">
-            <Register
-              title="Добро пожаловать!"
-              buttonText="Зарегистрироваться"
-              onRegister={handleSubmitRegister}
-              errorServer={errorServer}
-            />
-          </Route>
+            {!loggedIn ? (
+              <Register
+                title="Добро пожаловать!"
+                buttonText="Зарегистрироваться"
+                onRegister={handleSubmitRegister}
+                errorServer={errorServer}
+                inputdisabled={inputdisabled}
+              />) : (<Redirect to="/movies" />)
+            } </Route>
+
           <Route path="/signin">
-            <Login
-              title="Рады видеть!"
-              buttonText="Войти"
-              onLogin={handleSubmitAuthorize}
-              errorServer={errorServer}
-            />
-          </Route>
+            {!loggedIn ? (
+              <Login
+                title="Рады видеть!"
+                buttonText="Войти"
+                onLogin={handleSubmitAuthorize}
+                errorServer={errorServer}
+                inputdisabled={inputdisabled}
+              />) : (<Redirect to="/movies" />)
+            } </Route>
 
           <Route
             path="/profile"

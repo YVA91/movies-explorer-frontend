@@ -10,6 +10,7 @@ function Profile({ onUpdateUser, errorServer, onExit }) {
   function handleSubmit(e) {
     e.preventDefault();
     onUpdateUser(values.email, values.name)
+    console.log(values.email, values.name)
   }
 
   function handleExit() {
@@ -29,7 +30,7 @@ function Profile({ onUpdateUser, errorServer, onExit }) {
             name="name"
             required
             minLength="2"
-            placeholder={currentUser.name}
+            placeholder=''
             value={values.name || ""}
             onChange={handleChange}
           />
@@ -44,15 +45,16 @@ function Profile({ onUpdateUser, errorServer, onExit }) {
             name="email"
             required
             minLength="2"
-            placeholder={currentUser.email}
+            placeholder=''
             value={values.email || ""}
             onChange={handleChange}
+            pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
           />
         </label>
         <span className="popup__field-item-error" id="link-error">{errors.email}</span>
         <div className="profile__button-container">
           <span className="popup__field-item-error" id="link-error">{errorServer}</span>
-          <button className={`profile__button ${!isValid || (values.name == currentUser.name) || (values.email == currentUser.email) ? 'profile__button_disabled' : ''}`} disabled={!isValid || (values.name == currentUser.name) || (values.email == currentUser.email)} type="submit" aria-label="Редактировать">Редактировать</button>
+          <button className={`profile__button ${!isValid || (values.name === currentUser.name) && (values.email === currentUser.email) ? 'profile__button_disabled' : ''}`} disabled={!isValid || (values.name == currentUser.name) && (values.email == currentUser.email)} type="submit" aria-label="Редактировать">Редактировать</button>
           <button className="profile__button" type="button" onClick={handleExit} aria-label="Выйти из аккаунта">Выйти из аккаунта</button>
         </div>
       </form>

@@ -7,7 +7,7 @@ import FoundNothing from '../FoundNothing/FoundNothing'
 import { getCreateMovies } from '../../utils/MoviesApi'
 import { useState, useEffect } from 'react';
 
-function Movies({ onSaveMovie, loggedIn, saveMovies, onDeleteMovie }) {
+function Movies({ onSaveMovie, loggedIn, saveMovies, onDeleteMovie, inputdisabled, setInputdisabled}) {
   const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')) || []);
   const [isNothingFound, setIsNothingFound] = useState({ condition: false, text: '', });
   const [isfilterCheckbox, setIsFilterCheckbox] = useState(JSON.parse(localStorage.getItem('checkbox')) || false);
@@ -53,6 +53,7 @@ function Movies({ onSaveMovie, loggedIn, saveMovies, onDeleteMovie }) {
 
   function handleSearchFilm(text) {
     if (loggedIn) {
+      setInputdisabled(false)
       handleMovieDisplay()
       localStorage.setItem('text', text)
       setIsNothingFound({ condition: false, text: '', })
@@ -88,6 +89,7 @@ function Movies({ onSaveMovie, loggedIn, saveMovies, onDeleteMovie }) {
         })
         .finally(() => {
           setIsPreloader(false)
+          setInputdisabled(true)
         });
     }
   }
@@ -114,11 +116,13 @@ function Movies({ onSaveMovie, loggedIn, saveMovies, onDeleteMovie }) {
       <SearchForm
         searchFilm={handleSearchFilm}
         textValue={valueMovies}
+        inputdisabled={inputdisabled}
       />
       <FilterCheckbox
         setIsFilterCheckbox={setIsFilterCheckbox}
         isfilterCheckbox={isfilterCheckbox}
-        filterCheckbox={filterCheckbox} />
+        filterCheckbox={filterCheckbox}
+        inputdisabled={inputdisabled} />
       <Preloader
         isPreloader={isPreloader} />
       <FoundNothing

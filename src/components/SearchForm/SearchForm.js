@@ -2,7 +2,7 @@ import './SearchForm.css';
 import search from '../../images/icon.png'
 import { useState, useEffect } from "react";
 
-function SearchForm({ searchFilm, textValue }) {
+function SearchForm({ searchFilm, textValue, inputdisabled }) {
   const [error, setError] = useState('');
   const [values, setValues] = useState(textValue);
   const [isValid, setIsValid] = useState((textValue === null) ? false : true);
@@ -52,6 +52,7 @@ function SearchForm({ searchFilm, textValue }) {
           placeholder="Фильм"
           value={values || ''}
           onChange={handleChange}
+          disabled={inputdisabled ? false : true}
         />
         <span className="search__form-error">{error}</span>
         <button className="search_form-button" type="submit">Найти</button>

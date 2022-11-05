@@ -3,7 +3,7 @@ import AuthForm from '../AuthForm/AuthForm';
 import { Link } from 'react-router-dom';
 import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Login({ onLogin, title, buttonText, errorServer }) {
+function Login({ onLogin, title, buttonText, errorServer, inputdisabled }) {
   const { values, handleChange, errors, isValid, } = useFormWithValidation({})
 
   function handleSubmit(e) {
@@ -25,6 +25,7 @@ function Login({ onLogin, title, buttonText, errorServer }) {
         error={errors}
         isValid={isValid}
         errorServer={errorServer}
+        inputdisabled={inputdisabled}
       />
       <div className='formregister'>
         <p className='formregister__item'>Ещё не зарегистрированы?&nbsp;

@@ -6,7 +6,7 @@ import FoundNothing from '../FoundNothing/FoundNothing';
 import Preloader from '../Preloader/Preloader';
 import { useState } from 'react';
 
-function SavedMovies({ saveMovies, onDeleteMovie, filterSaveMovies, setFilterSaveMovies }) {
+function SavedMovies({ saveMovies, onDeleteMovie, filterSaveMovies, setFilterSaveMovies, inputdisabled }) {
   const [isNothingFound, setIsNothingFound] = useState({ condition: false, text: '', });
   const [isfilterCheckboxSave, setIsFilterCheckboxSave] = useState(JSON.parse(localStorage.getItem('checkboxSave')));
   const [isPreloader, setIsPreloader] = useState(false);
@@ -47,10 +47,11 @@ function SavedMovies({ saveMovies, onDeleteMovie, filterSaveMovies, setFilterSav
       <SearchForm
         searchFilm={handleSearchFilm}
         textValue={''}
+        inputdisabled={inputdisabled}
       />
       <FilterCheckbox
-        //isfilterCheckbox={false}
         filterCheckbox={filterCheckbox}
+        inputdisabled={inputdisabled}
       />
       <Preloader
         isPreloader={isPreloader} />

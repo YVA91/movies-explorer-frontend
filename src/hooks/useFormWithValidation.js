@@ -1,7 +1,9 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useContext } from 'react';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
 
 export function useFormWithValidation() {
-  const [values, setValues] = useState({});
+  const currentUser = useContext(CurrentUserContext);
+  const [values, setValues] = useState({name: currentUser.name, email: currentUser.email});
   const [errors, setErrors] = useState({});
   const [isValid, setIsValid] = useState(false);
   const handleChange = (event) => {

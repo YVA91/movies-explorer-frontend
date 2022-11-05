@@ -1,7 +1,7 @@
 import './AuthForm.css';
 import { Route } from 'react-router-dom';
 
-function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordValue, nameValue, nameName, nameEmail, namePassword, error, isValid, errorServer}) {
+function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordValue, nameValue, nameName, nameEmail, namePassword, error, isValid, errorServer, inputdisabled}) {
 
   return (
     <form className='authform' onSubmit={onSubmit} noValidate>
@@ -20,6 +20,7 @@ function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordV
             onChange={onChange}
             name={nameName}
             pattern="^[A-Za-zА-Яа-яЁё/s][A-Za-zА-Яа-яЁё /s -]+$"
+            disabled={inputdisabled ? false : true}
           />
           <span className="authform__field-item-error">{error.name}</span>
         </label>
@@ -36,6 +37,8 @@ function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordV
           value={emailValue || ""}
           onChange={onChange}
           name={nameEmail}
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+          disabled={inputdisabled ? false : true}
         />
         <span className="authform__field-item-error">{error.email}</span>
       </label>
@@ -51,6 +54,7 @@ function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordV
           value={passwordValue || ""}
           onChange={onChange}
           name={namePassword}
+          disabled={inputdisabled ? false : true}
         />
         <span className="authform__field-item-error">{error.password}</span>
       </label>
