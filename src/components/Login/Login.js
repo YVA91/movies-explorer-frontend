@@ -1,14 +1,14 @@
 import './Login.css'
 import AuthForm from '../AuthForm/AuthForm';
 import { Link } from 'react-router-dom';
-import { useForm } from '../../hooks/useForm';
+import { useFormWithValidation } from '../../hooks/useFormWithValidation';
 
-function Login({ onRegister, title, buttonText }) {
-  const { values, handleChange } = useForm({});
+function Login({ onLogin, title, buttonText, errorServer, inputdisabled }) {
+  const { values, handleChange, errors, isValid, } = useFormWithValidation({})
 
   function handleSubmit(e) {
     e.preventDefault();
-    onRegister(values.email, values.password);
+    onLogin(values.email, values.password);
   }
 
   return (
@@ -22,6 +22,10 @@ function Login({ onRegister, title, buttonText }) {
         onChange={handleChange}
         emailValue={values.email}
         passwordValue={values.password}
+        error={errors}
+        isValid={isValid}
+        errorServer={errorServer}
+        inputdisabled={inputdisabled}
       />
       <div className='formregister'>
         <p className='formregister__item'>Ещё не зарегистрированы?&nbsp;

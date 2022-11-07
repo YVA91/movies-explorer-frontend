@@ -1,7 +1,8 @@
 import './MoviesCardList.css'
 import MoviesCard from '../MoviesCard/MoviesCard';
+import { Route } from 'react-router-dom';
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, still, onSaveMovie, onDeleteMovie, filterMovies, movieDisplay, saveMovies }) {
 
   return (
     <section className='moviescardlist'>
@@ -9,15 +10,22 @@ function MoviesCardList({ movies }) {
         {movies.map((movie) => {
           return (
             <MoviesCard
-              key={movie.id}
+              saveMovies={saveMovies}
+              onSaveMovie={onSaveMovie}
+              onDeleteMovie={onDeleteMovie}
+              key={movie.id || movie._id}
               movie={movie}
             />)
           })
         }
       </div>
-      <button type='button' className='moviescardlist__button'>Ещё</button>
+      <Route exact path="/movies">
+      <button type='button' className={`moviescardlist__button ${filterMovies.length<=movieDisplay &&  'moviescardlist__button_visible' }`} onClick={still}>Ещё</button>
+      </Route>
     </section>
   );
 }
 
 export default MoviesCardList
+
+

@@ -5,6 +5,7 @@
 }
 
 .search_form {
+  position: relative;
   margin: 0 70px 0;
   display: flex;
   justify-content: space-between;
@@ -17,6 +18,24 @@
 
 .search_form:focus-within {
   border-bottom: 1px solid #4285F4;
+}
+
+.search__form-error {
+  position: absolute;
+  color: #EE3465;
+  text-align: center;
+  top: 60px;
+  left: 50px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 18px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
 }
 
 .search_form-input {

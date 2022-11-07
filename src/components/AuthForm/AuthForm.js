@@ -1,9 +1,10 @@
 import './AuthForm.css';
 import { Route } from 'react-router-dom';
 
-function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwordValue, onChange, buttonText }) {
+function AuthForm({ onSubmit, title, buttonText, onChange, emailValue, passwordValue, nameValue, nameName, nameEmail, namePassword, error, isValid, errorServer, inputdisabled}) {
+
   return (
-    <form className='authform' onSubmit={onSubmit}>
+    <form className='authform' onSubmit={onSubmit} noValidate>
       <h2 className='authform__title'>{title}</h2>
       <Route exact path="/signup">
         <label className="authform__field">
@@ -15,8 +16,13 @@ function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwo
             required
             minLength="2"
             placeholder=""
+            value={nameValue || ""}
+            onChange={onChange}
+            name={nameName}
+            pattern="^[A-Za-zА-Яа-яЁё/s][A-Za-zА-Яа-яЁё /s -]+$"
+            disabled={inputdisabled ? false : true}
           />
-          <span className="authform__field-item-error" id="title-error"></span>
+          <span className="authform__field-item-error">{error.name}</span>
         </label>
       </Route>
       <label className="authform__field">
@@ -28,8 +34,13 @@ function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwo
           required
           minLength="2"
           placeholder=""
+          value={emailValue || ""}
+          onChange={onChange}
+          name={nameEmail}
+          pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+          disabled={inputdisabled ? false : true}
         />
-        <span className="authform__field-item-error" id="title-error"></span>
+        <span className="authform__field-item-error">{error.email}</span>
       </label>
       <label className="authform__field">
         <span className="authform__field-signature">Пароль</span>
@@ -40,10 +51,15 @@ function AuthForm({ onSubmit, title, nameEmail, emailValue, namePassword, passwo
           required
           minLength="2"
           placeholder=""
+          value={passwordValue || ""}
+          onChange={onChange}
+          name={namePassword}
+          disabled={inputdisabled ? false : true}
         />
-        <span className="authform__field-item-error" id="link-error"></span>
+        <span className="authform__field-item-error">{error.password}</span>
       </label>
-      <button className="authform__button" type="submit" aria-label={buttonText}>{buttonText}</button>
+      <span className="authform__button-error">{errorServer}</span>
+      <button className={`authform__button ${!isValid && 'authform__button_disabled' }`} disabled={!isValid} type="submit" aria-label={buttonText}>{buttonText}</button>
     </form>
   );
 }

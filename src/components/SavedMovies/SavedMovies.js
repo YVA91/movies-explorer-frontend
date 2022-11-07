@@ -2,46 +2,67 @@ import './SavedMovies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import { useState, useEffect } from 'react';
+import FoundNothing from '../FoundNothing/FoundNothing';
+import Preloader from '../Preloader/Preloader';
+import { useState } from 'react';
 
-function SavedMovies({ movies }) {
+function SavedMovies({ saveMovies, onDeleteMovie, filterSaveMovies, setFilterSaveMovies, inputdisabled }) {
+  const [isNothingFound, setIsNothingFound] = useState({ condition: false, text: '', });
+  const [isfilterCheckboxSave, setIsFilterCheckboxSave] = useState(JSON.parse(localStorage.getItem('checkboxSave')));
+  const [isPreloader, setIsPreloader] = useState(false);
+  const [filterMovies, setFilterMovies] = useState(JSON.parse(localStorage.getItem('data')) || []);
 
-  const [movieDisplay, setMovieDisplay] = useState(() => {
-    const width = window.innerWidth
-    if (width < 480) {
-      return 5;
-    } else if (width < 768) {
-      return 8;
-    } else if (width > 768) {
-      return 12;
-    }
-  });
-
-  function handleMovieDisplay() {
-    const width = window.innerWidth
-    if (width < 480) {
-      setMovieDisplay(5);
-    } else if (width < 768) {
-      setMovieDisplay(8);
-    } else if (width > 768) {
-      setMovieDisplay(12);
+  function handleSearchFilm(text) {
+    const saveMoviesNew = saveMovies
+    if (isfilterCheckboxSave) {
+      const filter = saveMoviesNew.filter(({ nameRU, duration }) => nameRU.toLowerCase().includes(text.toLowerCase()) && (duration <= 40));
+      setFilterSaveMovies(filter)
+      if (filter == 0) {
+        setIsNothingFound({ condition: true, text: 'Ничего не найдено', });
+      } else {
+        setIsNothingFound({ condition: false, text: '', })
+      }
+    } else {
+      const filter = saveMoviesNew.filter(({ nameRU }) => nameRU.toLowerCase().includes(text.toLowerCase()));
+      setFilterSaveMovies(filter)
+      if (filter == 0) {
+        setIsNothingFound({ condition: true, text: 'Ничего не найдено', });
+      } else {
+        setIsNothingFound({ condition: false, text: '', })
+      }
     }
   }
 
-  useEffect(() => {
-    window.addEventListener("resize", function () {
-      setTimeout(handleMovieDisplay, 1000);
-    });
-  }, []);
+  function filterCheckbox() {
 
-  const moviesScreen = movies.slice(0, 3);
+    if (isfilterCheckboxSave) {
+      setIsFilterCheckboxSave(false)
+    } else {
+      setIsFilterCheckboxSave(true)
+    }
+  }
 
   return (
     <main>
-      <SearchForm />
-      <FilterCheckbox />
+      <SearchForm
+        searchFilm={handleSearchFilm}
+        textValue={''}
+        inputdisabled={inputdisabled}
+      />
+      <FilterCheckbox
+        filterCheckbox={filterCheckbox}
+        inputdisabled={inputdisabled}
+      />
+      <Preloader
+        isPreloader={isPreloader} />
+      <FoundNothing
+        isNothingFound={isNothingFound}
+      />
       <MoviesCardList
-        movies={moviesScreen}
+        filterMovies={filterMovies}
+        saveMovies={saveMovies}
+        movies={filterSaveMovies}
+        onDeleteMovie={onDeleteMovie}
       />
     </main>
   );

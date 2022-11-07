@@ -37,6 +37,10 @@
   cursor: pointer;
 }
 
+.moviescardlist__button_visible {
+  display: none;
+}
+
 .moviescardlist__button:hover {
   opacity: 0.6;
 }
